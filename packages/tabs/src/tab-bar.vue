@@ -2,7 +2,7 @@
   <div class="el-tabs__active-bar" :class="`is-${ rootTabs.tabPosition }`" :style="barStyle"></div>
 </template>
 <script>
-  import { arrayFind } from 'gc-ui/src/utils/util';
+  import { arrayFind } from 'element-ui/src/utils/util';
   export default {
     name: 'TabBar',
 
@@ -32,16 +32,17 @@
               return true;
             } else {
               tabSize = $el[`client${firstUpperCase(sizeName)}`];
+              const tabStyles = window.getComputedStyle($el);
               if (sizeName === 'width' && this.tabs.length > 1) {
-                tabSize -= (index === 0 || index === this.tabs.length - 1) ? 20 : 40;
+                tabSize -= parseFloat(tabStyles.paddingLeft) + parseFloat(tabStyles.paddingRight);
+              }
+              if (sizeName === 'width') {
+                offset += parseFloat(tabStyles.paddingLeft);
               }
               return false;
             }
           });
 
-          if (sizeName === 'width' && offset !== 0) {
-            offset += 20;
-          }
           const transform = `translate${firstUpperCase(sizeDir)}(${offset}px)`;
           style[sizeName] = tabSize + 'px';
           style.transform = transform;

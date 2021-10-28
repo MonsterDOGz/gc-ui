@@ -99,6 +99,7 @@ Puede usar directamente las transiciones incorporadas en Element. Antes de hacer
 ### Colapsado
 Para efectos de colapsado usar el componente `el-collapse-transition`.
 :::demo
+
 ```html
 <template>
   <div>
@@ -140,13 +141,13 @@ Para efectos de colapsado usar el componente `el-collapse-transition`.
 ```
 :::
 
-### On demand
+### Bajo demanda
 
 ```js
 // fade/zoom
-import 'gc-ui/lib/theme-chalk/base.css';
+import 'element-ui/lib/theme-chalk/base.css';
 // colapsar
-import CollapseTransition from 'gc-ui/lib/transitions/collapse-transition';
+import CollapseTransition from 'element-ui/lib/transitions/collapse-transition';
 import Vue from 'vue'
 
 Vue.component(CollapseTransition.name, CollapseTransition)

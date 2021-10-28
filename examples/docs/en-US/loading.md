@@ -70,7 +70,7 @@ You can customize loading text, loading spinner and background color.
 ```html
 <template>
   <el-table
-    v-loading="loading2"
+    v-loading="loading"
     element-loading-text="Loading..."
     element-loading-spinner="el-icon-loading"
     element-loading-background="rgba(0, 0, 0, 0.8)"
@@ -110,7 +110,7 @@ You can customize loading text, loading spinner and background color.
           name: 'John Smith',
           address: 'No.1518,  Jinshajiang Road, Putuo District'
         }],
-        loading2: true
+        loading: true
       };
     }
   };
@@ -128,7 +128,7 @@ Show a full screen animation while loading data.
 <template>
   <el-button
     type="primary"
-    @click="openFullScreen"
+    @click="openFullScreen1"
     v-loading.fullscreen.lock="fullscreenLoading">
     As a directive
   </el-button>
@@ -147,7 +147,7 @@ Show a full screen animation while loading data.
       }
     },
     methods: {
-      openFullScreen() {
+      openFullScreen1() {
         this.fullscreenLoading = true;
         setTimeout(() => {
           this.fullscreenLoading = false;
@@ -173,7 +173,7 @@ Show a full screen animation while loading data.
 ### Service
 You can also invoke Loading with a service. Import Loading service:
 ```javascript
-import { Loading } from 'gc-ui';
+import { Loading } from 'element-ui';
 ```
 Invoke it:
 ```javascript

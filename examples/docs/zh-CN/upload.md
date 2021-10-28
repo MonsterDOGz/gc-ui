@@ -154,6 +154,75 @@
 ```
 :::
 
+### 文件缩略图
+
+使用 `scoped-slot` 去设置缩略图模版。
+
+:::demo
+```html
+<el-upload
+  action="#"
+  list-type="picture-card"
+  :auto-upload="false">
+    <i slot="default" class="el-icon-plus"></i>
+    <div slot="file" slot-scope="{file}">
+      <img
+        class="el-upload-list__item-thumbnail"
+        :src="file.url" alt=""
+      >
+      <span class="el-upload-list__item-actions">
+        <span
+          class="el-upload-list__item-preview"
+          @click="handlePictureCardPreview(file)"
+        >
+          <i class="el-icon-zoom-in"></i>
+        </span>
+        <span
+          v-if="!disabled"
+          class="el-upload-list__item-delete"
+          @click="handleDownload(file)"
+        >
+          <i class="el-icon-download"></i>
+        </span>
+        <span
+          v-if="!disabled"
+          class="el-upload-list__item-delete"
+          @click="handleRemove(file)"
+        >
+          <i class="el-icon-delete"></i>
+        </span>
+      </span>
+    </div>
+</el-upload>
+<el-dialog :visible.sync="dialogVisible">
+  <img width="100%" :src="dialogImageUrl" alt="">
+</el-dialog>
+<script>
+  export default {
+    data() {
+      return {
+        dialogImageUrl: '',
+        dialogVisible: false,
+        disabled: false
+      };
+    },
+    methods: {
+      handleRemove(file) {
+        console.log(file);
+      },
+      handlePictureCardPreview(file) {
+        this.dialogImageUrl = file.url;
+        this.dialogVisible = true;
+      },
+      handleDownload(file) {
+        console.log(file);
+      }
+    }
+  }
+</script>
+```
+:::
+
 ### 图片列表缩略图
 
 :::demo
@@ -299,7 +368,7 @@
 | on-progress | 文件上传时的钩子 | function(event, file, fileList) | — | — |
 | on-change | 文件状态改变时的钩子，添加文件、上传成功和上传失败时都会被调用 | function(file, fileList) | — | — |
 | before-upload | 上传文件之前的钩子，参数为上传的文件，若返回 false 或者返回 Promise 且被 reject，则停止上传。 | function(file) | — | — |
-| before-remove | 删除文件之前的钩子，参数为上传的文件和文件列表，若返回 false 或者返回 Promise 且被 reject，则停止上传。| function(file, fileList) | — | — |
+| before-remove | 删除文件之前的钩子，参数为上传的文件和文件列表，若返回 false 或者返回 Promise 且被 reject，则停止删除。| function(file, fileList) | — | — |
 | list-type | 文件列表的类型 | string | text/picture/picture-card | text |
 | auto-upload | 是否在选取文件后立即进行上传 | boolean | — | true |
 | file-list | 上传的文件列表, 例如: [{name: 'food.jpg', url: 'https://xxx.cdn.com/xxx.jpg'}] | array | — | [] |

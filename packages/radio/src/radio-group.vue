@@ -1,14 +1,15 @@
 <template>
-  <div
+  <component
+    :is="_elTag"
     class="el-radio-group"
     role="radiogroup"
     @keydown="handleKeydown"
   >
     <slot></slot>
-  </div>
+  </component>
 </template>
 <script>
-  import Emitter from 'gc-ui/src/mixins/emitter';
+  import Emitter from 'element-ui/src/mixins/emitter';
 
   const keyCode = Object.freeze({
     LEFT: 37,
@@ -40,6 +41,11 @@
     computed: {
       _elFormItemSize() {
         return (this.elFormItem || {}).elFormItemSize;
+      },
+      _elTag() {
+        let tag = (this.$vnode.data || {}).tag;
+        if (!tag || tag === 'component') tag = 'div';
+        return tag;
       },
       radioGroupSize() {
         return this.size || this._elFormItemSize || (this.$ELEMENT || {}).size;

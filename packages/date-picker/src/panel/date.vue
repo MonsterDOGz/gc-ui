@@ -96,6 +96,7 @@
               :value="value"
               :default-value="defaultValue ? new Date(defaultValue) : null"
               :date="date"
+              :cell-class-name="cellClassName"
               :disabled-date="disabledDate">
             </date-table>
             <year-table
@@ -160,11 +161,11 @@
     extractDateFormat,
     extractTimeFormat,
     timeWithinRange
-  } from '../util';
-  import Clickoutside from 'gc-ui/src/utils/clickoutside';
-  import Locale from 'gc-ui/src/mixins/locale';
-  import ElInput from 'gc-ui/packages/input';
-  import ElButton from 'gc-ui/packages/button';
+  } from 'element-ui/src/utils/date-util';
+  import Clickoutside from 'element-ui/src/utils/clickoutside';
+  import Locale from 'element-ui/src/mixins/locale';
+  import ElInput from 'element-ui/packages/input';
+  import ElButton from 'element-ui/packages/button';
   import TimePicker from './time';
   import YearTable from '../basic/year-table';
   import MonthTable from '../basic/month-table';
@@ -515,6 +516,7 @@
         visible: false,
         currentView: 'date',
         disabledDate: '',
+        cellClassName: '',
         selectableRange: [],
         firstDayOfWeek: 7,
         showWeekNumber: false,

@@ -1,13 +1,12 @@
-
 ## DatePicker
 
-Utilisez le DatePicker pour les champs de dates.
+Utilisez DatePicker pour les champs de dates.
 
 ### Entrez la date
 
 L'unité de base du DatePicker est le jour.
 
-:::demo L'unité est déterminée par l'attribut `type`. Vous pouvez  ajouter des options de raccourcis en créant un objet `picker-options` avec la propriété `shortcuts`. L'état désactivé est controllé par `disabledDate` qui prend une function.
+:::demo L'unité est déterminée par l'attribut `type`. Vous pouvez ajouter des options en créant un objet `picker-options` avec la propriété `shortcuts`. L'état désactivé est contrôlé par `disabledDate` qui est une fonction.
 
 ```html
 <template>
@@ -25,7 +24,7 @@ L'unité de base du DatePicker est le jour.
       v-model="value2"
       type="date"
       placeholder="Choississez un jour"
-      :picker-options="pickerOptions1">
+      :picker-options="pickerOptions">
     </el-date-picker>
   </div>
 </template>
@@ -34,7 +33,7 @@ L'unité de base du DatePicker est le jour.
   export default {
     data() {
       return {
-        pickerOptions1: {
+        pickerOptions: {
           disabledDate(time) {
             return time.getTime() > Date.now();
           },
@@ -79,7 +78,7 @@ Vous pouvez sélectionner une semaine, un mois, une année ou plusieurs dates en
   <div class="block">
     <span class="demonstration">Semaine</span>
     <el-date-picker
-      v-model="value3"
+      v-model="value1"
       type="week"
       format="Week WW"
       placeholder="Sélectionnez une semaine">
@@ -88,7 +87,7 @@ Vous pouvez sélectionner une semaine, un mois, une année ou plusieurs dates en
   <div class="block">
     <span class="demonstration">Mois</span>
     <el-date-picker
-      v-model="value4"
+      v-model="value2"
       type="month"
       placeholder="Sélectionnez un mois">
     </el-date-picker>
@@ -98,7 +97,7 @@ Vous pouvez sélectionner une semaine, un mois, une année ou plusieurs dates en
   <div class="block">
     <span class="demonstration">Année</span>
     <el-date-picker
-      v-model="value5"
+      v-model="value3"
       type="year"
       placeholder="Sélectionnez une année">
     </el-date-picker>
@@ -107,7 +106,7 @@ Vous pouvez sélectionner une semaine, un mois, une année ou plusieurs dates en
     <span class="demonstration">Dates</span>
     <el-date-picker
       type="dates"
-      v-model="value14"
+      v-model="value4"
       placeholder="Sélectionnez une ou plusieurs dates">
     </el-date-picker>
   </div>
@@ -117,10 +116,10 @@ Vous pouvez sélectionner une semaine, un mois, une année ou plusieurs dates en
   export default {
     data() {
       return {
+        value1: '',
+        value2: '',
         value3: '',
-        value4: '',
-        value5: '',
-        value14: ''
+        value4: ''
       };
     }
   };
@@ -140,7 +139,7 @@ Vous pouvez sélectionner une plage de dates.
   <div class="block">
     <span class="demonstration">Défaut</span>
     <el-date-picker
-      v-model="value6"
+      v-model="value1"
       type="daterange"
       range-separator="à"
       start-placeholder="Date de début"
@@ -148,16 +147,16 @@ Vous pouvez sélectionner une plage de dates.
     </el-date-picker>
   </div>
   <div class="block">
-    <span class="demonstration">Avec raccourcis</span>
+    <span class="demonstration">Avec des options</span>
     <el-date-picker
-      v-model="value7"
+      v-model="value2"
       type="daterange"
       align="right"
       unlink-panels
       range-separator="à"
       start-placeholder="Date de début"
       end-placeholder="Date de fin"
-      :picker-options="pickerOptions2">
+      :picker-options="pickerOptions">
     </el-date-picker>
   </div>
 </template>
@@ -166,7 +165,7 @@ Vous pouvez sélectionner une plage de dates.
   export default {
     data() {
       return {
-        pickerOptions2: {
+        pickerOptions: {
           shortcuts: [{
             text: 'Semaine dernière',
             onClick(picker) {
@@ -193,8 +192,8 @@ Vous pouvez sélectionner une plage de dates.
             }
           }]
         },
-        value6: '',
-        value7: ''
+        value1: '',
+        value2: ''
       };
     }
   };
@@ -203,34 +202,34 @@ Vous pouvez sélectionner une plage de dates.
 
 :::
 
-### Month Range
+### Plage de mois
 
-Picking a month range is supported.
+Vous pouvez sélectionner une plage de mois.
 
-:::demo When in range mode, the left and right panels are linked by default. If you want the two panels to switch current years independently, you can use the `unlink-panels` attribute.
+:::demo Lorsque ce mode est activé, les panneaux gauche et droit sont liés par défaut. Si vous voulez que les deux panneaux switch indépendamment les années en cours, vous pouvez utiliser l'attribut `unlink-panels`.
 ```html
 <template>
   <div class="block">
-    <span class="demonstration">Default</span>
+    <span class="demonstration">Défaut</span>
     <el-date-picker
-      v-model="value15"
+      v-model="value1"
       type="monthrange"
-      range-separator="To"
-      start-placeholder="Start month"
-      end-placeholder="End month">
+      range-separator="à"
+      start-placeholder="Mois de début"
+      end-placeholder="Mois de fin">
     </el-date-picker>
   </div>
   <div class="block">
-    <span class="demonstration">With quick options</span>
+    <span class="demonstration">Avec options</span>
     <el-date-picker
-      v-model="value16"
+      v-model="value2"
       type="monthrange"
       align="right"
       unlink-panels
-      range-separator="To"
-      start-placeholder="Start month"
-      end-placeholder="End month"
-      :picker-options="pickerOptions3">
+      range-separator="à"
+      start-placeholder="Mois de début"
+      end-placeholder="Mois de fin"
+      :picker-options="pickerOptions">
     </el-date-picker>
   </div>
 </template>
@@ -239,21 +238,21 @@ Picking a month range is supported.
   export default {
     data() {
       return {
-        pickerOptions3: {
+        pickerOptions: {
           shortcuts: [{
-            text: 'This month',
+            text: 'Ce mois',
             onClick(picker) {
               picker.$emit('pick', [new Date(), new Date()]);
             }
           }, {
-            text: 'This year',
+            text: 'Cette année',
             onClick(picker) {
               const end = new Date();
               const start = new Date(new Date().getFullYear(), 0);
               picker.$emit('pick', [start, end]);
             }
           }, {
-            text: 'Last 6 months',
+            text: 'Les derniers 6 mois',
             onClick(picker) {
               const end = new Date();
               const start = new Date();
@@ -262,8 +261,8 @@ Picking a month range is supported.
             }
           }]
         },
-        value15: '',
-        value16: ''
+        value1: '',
+        value2: ''
       };
     }
   };
@@ -283,7 +282,7 @@ Si le type est `daterange`, `default-value` configure la panneau de gauche.
   <div class="block">
     <span class="demonstration">Date</span>
     <el-date-picker
-      v-model="value8"
+      v-model="value1"
       type="date"
       placeholder="Sélectionnez une date"
       default-value="2010-10-01">
@@ -292,7 +291,7 @@ Si le type est `daterange`, `default-value` configure la panneau de gauche.
   <div class="block">
     <span class="demonstration">Plage de dates</span>
     <el-date-picker
-      v-model="value9"
+      v-model="value2"
       type="daterange"
       align="right"
       start-placeholder="Date de début"
@@ -306,8 +305,8 @@ Si le type est `daterange`, `default-value` configure la panneau de gauche.
   export default {
     data() {
       return {
-        value8: '',
-        value9: ''
+        value1: '',
+        value2: ''
       };
     }
   };
@@ -347,15 +346,16 @@ Attention à la capitalisation !
 | `A`  | AM/PM | uniquement pour `format`, majuscules | AM |
 | `a`  | am/pm | uniquement pour `format`, minuscules | am |
 | `timestamp` | timestamp JS | uniquement pour `value-format`; la variable stockée sera un `number` | 1483326245000 |
+| `[MM]` | Pas de caractère d'échappement | Pour échapper des caractères, placez-les entre crochets (ex: [A] [MM]) | MM |
 
 :::demo
 ```html
 <template>
   <div class="block">
     <span class="demonstration">Émet un objet Date</span>
-    <div class="demonstration">Value: {{ value10 }}</div>
+    <div class="demonstration">Value: {{ value1 }}</div>
     <el-date-picker
-      v-model="value10"
+      v-model="value1"
       type="date"
       placeholder="Sélectionnez une date"
       format="yyyy/MM/dd">
@@ -363,9 +363,9 @@ Attention à la capitalisation !
   </div>
   <div class="block">
     <span class="demonstration">Utilise value-format</span>
-    <div class="demonstration">Value: {{ value11 }}</div>
+    <div class="demonstration">Value: {{ value2 }}</div>
     <el-date-picker
-      v-model="value11"
+      v-model="value2"
       type="date"
       placeholder="Sélectionnez une date"
       format="yyyy/MM/dd"
@@ -374,9 +374,9 @@ Attention à la capitalisation !
   </div>
   <div class="block">
     <span class="demonstration">Timestamp</span>
-    <div class="demonstration">Value：{{ value12 }}</div>
+    <div class="demonstration">Value：{{ value3 }}</div>
     <el-date-picker
-      v-model="value12"
+      v-model="value3"
       type="date"
       placeholder="Sélectionnez une date"
       format="yyyy/MM/dd"
@@ -389,9 +389,9 @@ Attention à la capitalisation !
   export default {
     data() {
       return {
-        value10: '',
-        value11: '',
-        value12: ''
+        value1: '',
+        value2: '',
+        value3: ''
       };
     }
   };
@@ -407,9 +407,9 @@ Lorsque vous choisissez une plage de dates, vous pouvez assigner l'horaire de d�
 ```html
 <template>
   <div class="block">
-    <p>Valeur: {{ value13 }}</p>
+    <p>Valeur: {{ value }}</p>
     <el-date-picker
-      v-model="value13"
+      v-model="value"
       type="daterange"
       start-placeholder="Date de début"
       end-placeholder="Date de fin"
@@ -422,7 +422,7 @@ Lorsque vous choisissez une plage de dates, vous pouvez assigner l'horaire de d�
   export default {
     data() {
       return {
-        value13: ''
+        value: ''
       };
     }
   };
@@ -448,9 +448,9 @@ Lorsque vous choisissez une plage de dates, vous pouvez assigner l'horaire de d�
 | popper-class | Nom de classe pour le menu déroulant du DatePicker. | string | — | — |
 | picker-options | Options additionnelles, voir la table ci-dessous. | object | — | {} |
 | range-separator | Séparateur de plage de dates. | string | — | '-' |
-| default-value | Date par défaut du calendrier, optionnelle. | Date | anything accepted by `new Date()` | — |
+| default-value | Date par défaut du calendrier, optionnelle. | Date | Tout ce qui est accepté par `new Date()` | — |
 | default-time | Horaire par défaut quand on sélectionne une plage dates, optionnel. | string[] | Tableau de taille 2, chaque valeur est au format `12:00:00`. La première pour la date de début, la deuxième pour la date de fin. | — |
-| value-format | Format de la variable stockée, optionnel. Si non spécifié, la valeur dsera un objet Date. | string | Voir [formats de date](#/en-US/component/date-picker#formats-de-date) | — |
+| value-format | Format de la variable stockée, optionnel. Si non spécifié, la valeur sera un objet Date. | string | Voir [formats de date](#/en-US/component/date-picker#formats-de-date) | — |
 | name | Identique au `name` de l'input natif | string | — | — |
 | unlink-panels | Rend indépendants les deux panneaux de plage de dates. | boolean | — | false |
 | prefix-icon | Icône de préfixe. | string | — | el-icon-date |
@@ -460,10 +460,11 @@ Lorsque vous choisissez une plage de dates, vous pouvez assigner l'horaire de d�
 ### Options du Picker
 | Attribut      | Description          | Type      | Valeurs acceptées       | Défaut  |
 |---------- |-------------- |---------- |--------------------------------  |-------- |
-| shortcuts | UN tableau d'objets { text, onClick } pour configurer les raccourcis, voir table ci-dessous. | object[] | — | — |
-| disabledDate | Une function qui détermine si une date est désactivée ou pas, avec cette date en paramètre. Doit retourner un booléen. | function | — | — |
+| shortcuts | Un tableau d'objets { text, onClick } pour configurer les raccourcis, voir table ci-dessous. | object[] | — | — |
+| disabledDate | Une fonction qui détermine si une date est désactivée ou pas, avec cette date en paramètre. Doit retourner un booléen. | function | — | — |
+| cellClassName | set custom className | Function(Date) | — | — |
 | firstDayOfWeek | Premier jour du mois. | Number | 1 to 7 | 7 |
-| onPick | Callbacl se déclenchant quand la date sélectionnée change. Uniquement pour `daterange` et `datetimerange`. | Function({ maxDate, minDate }) | - | - |
+| onPick | Callback se déclenchant quand la date sélectionnée change. Uniquement pour `daterange` et `datetimerange`. | Function({ maxDate, minDate }) | - | - |
 
 ### Raccourcis
 | Attribut      | Description          | Type      | Valeurs acceptées       | Défaut  |

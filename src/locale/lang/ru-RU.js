@@ -67,7 +67,8 @@ export default {
     cascader: {
       noMatch: 'Совпадений не найдено',
       loading: 'Загрузка',
-      placeholder: 'Выбрать'
+      placeholder: 'Выбрать',
+      noData: 'Нет данных'
     },
     pagination: {
       goto: 'Перейти',
@@ -84,7 +85,7 @@ export default {
     upload: {
       deleteTip: 'Нажмите [Удалить] для удаления',
       delete: 'Удалить',
-      preview: 'Превью',
+      preview: 'Предпросмотр',
       continue: 'Продолжить'
     },
     table: {
@@ -104,6 +105,19 @@ export default {
       filterPlaceholder: 'Введите ключевое слово',
       noCheckedFormat: '{total} пунктов',
       hasCheckedFormat: '{checked}/{total} выбрано'
+    },
+    image: {
+      error: 'Произошла ошибка'
+    },
+    pageHeader: {
+      title: 'Назад'
+    },
+    popconfirm: {
+      confirmButtonText: 'OK',
+      cancelButtonText: 'Отмена'
+    },
+    empty: {
+      description: 'Нет данных'
     }
   }
 };

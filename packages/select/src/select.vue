@@ -50,7 +50,6 @@
         :autocomplete="autoComplete || autocomplete"
         @focus="handleFocus"
         @blur="softFocus = false"
-        @click.stop
         @keyup="managePlaceholder"
         @keydown="resetInputState"
         @keydown.down.prevent="navigateOptions('next')"
@@ -58,6 +57,7 @@
         @keydown.enter.prevent="selectOption"
         @keydown.esc.stop.prevent="visible = false"
         @keydown.delete="deletePrevTag"
+        @keydown.tab="visible = false"
         @compositionstart="handleComposition"
         @compositionupdate="handleComposition"
         @compositionend="handleComposition"
@@ -80,15 +80,15 @@
       :readonly="readonly"
       :validate-event="false"
       :class="{ 'is-focus': visible }"
+      :tabindex="(multiple && filterable) ? '-1' : null"
       @focus="handleFocus"
       @blur="handleBlur"
-      @keyup.native="debouncedOnInputChange"
+      @input="debouncedOnInputChange"
       @keydown.native.down.stop.prevent="navigateOptions('next')"
       @keydown.native.up.stop.prevent="navigateOptions('prev')"
       @keydown.native.enter.prevent="selectOption"
       @keydown.native.esc.stop.prevent="visible = false"
       @keydown.native.tab="visible = false"
-      @paste.native="debouncedOnInputChange"
       @mouseenter.native="inputHovering = true"
       @mouseleave.native="inputHovering = false">
       <template slot="prefix" v-if="$slots.prefix">
@@ -133,23 +133,21 @@
 </template>
 
 <script type="text/babel">
-  import Emitter from 'gc-ui/src/mixins/emitter';
-  import Focus from 'gc-ui/src/mixins/focus';
-  import Locale from 'gc-ui/src/mixins/locale';
-  import ElInput from 'gc-ui/packages/input';
+  import Emitter from 'element-ui/src/mixins/emitter';
+  import Focus from 'element-ui/src/mixins/focus';
+  import Locale from 'element-ui/src/mixins/locale';
+  import ElInput from 'element-ui/packages/input';
   import ElSelectMenu from './select-dropdown.vue';
   import ElOption from './option.vue';
-  import ElTag from 'gc-ui/packages/tag';
-  import ElScrollbar from 'gc-ui/packages/scrollbar';
+  import ElTag from 'element-ui/packages/tag';
+  import ElScrollbar from 'element-ui/packages/scrollbar';
   import debounce from 'throttle-debounce/debounce';
-  import Clickoutside from 'gc-ui/src/utils/clickoutside';
-  import { addResizeListener, removeResizeListener } from 'gc-ui/src/utils/resize-event';
-  import { t } from 'gc-ui/src/locale';
-  import scrollIntoView from 'gc-ui/src/utils/scroll-into-view';
-  import { getValueByPath } from 'gc-ui/src/utils/util';
-  import { valueEquals, isIE, isEdge } from 'gc-ui/src/utils/util';
+  import Clickoutside from 'element-ui/src/utils/clickoutside';
+  import { addResizeListener, removeResizeListener } from 'element-ui/src/utils/resize-event';
+  import scrollIntoView from 'element-ui/src/utils/scroll-into-view';
+  import { getValueByPath, valueEquals, isIE, isEdge } from 'element-ui/src/utils/util';
   import NavigationMixin from './navigation-mixin';
-  import { isKorean } from 'gc-ui/src/utils/shared';
+  import { isKorean } from 'element-ui/src/utils/shared';
 
   export default {
     mixins: [Emitter, Locale, Focus('reference'), NavigationMixin],
@@ -235,6 +233,9 @@
         return ['small', 'mini'].indexOf(this.selectSize) > -1
           ? 'mini'
           : 'small';
+      },
+      propPlaceholder() {
+        return typeof this.placeholder !== 'undefined' ? this.placeholder : this.t('el.select.placeholder');
       }
     },
 
@@ -288,9 +289,7 @@
       },
       placeholder: {
         type: String,
-        default() {
-          return t('el.select.placeholder');
-        }
+        required: false
       },
       defaultFirstOption: Boolean,
       reserveKeyword: Boolean,
@@ -339,14 +338,14 @@
         });
       },
 
-      placeholder(val) {
+      propPlaceholder(val) {
         this.cachedPlaceHolder = this.currentPlaceholder = val;
       },
 
       value(val, oldVal) {
         if (this.multiple) {
           this.resetInputHeight();
-          if (val.length > 0 || (this.$refs.input && this.query !== '')) {
+          if ((val && val.length > 0) || (this.$refs.input && this.query !== '')) {
             this.currentPlaceholder = '';
           } else {
             this.currentPlaceholder = this.cachedPlaceHolder;
@@ -394,6 +393,10 @@
               }
               if (this.filterable) this.query = this.selectedLabel;
             }
+
+            if (this.filterable) {
+              this.currentPlaceholder = this.cachedPlaceHolder;
+            }
           }
         } else {
           this.broadcast('ElSelectDropdown', 'updatePopper');
@@ -407,7 +410,11 @@
                 this.broadcast('ElOption', 'queryChange', '');
                 this.broadcast('ElOptionGroup', 'queryChange');
               }
-              this.broadcast('ElInput', 'inputSelect');
+
+              if (this.selectedLabel) {
+                this.currentPlaceholder = this.selectedLabel;
+                this.selectedLabel = '';
+              }
             }
           }
         }
@@ -437,7 +444,7 @@
         const text = event.target.value;
         if (event.type === 'compositionend') {
           this.isOnComposition = false;
-          this.handleQueryChange(text);
+          this.$nextTick(_ => this.handleQueryChange(text));
         } else {
           const lastCharacter = text[text.length - 1] || '';
           this.isOnComposition = !isKorean(lastCharacter);
@@ -458,10 +465,12 @@
         });
         this.hoverIndex = -1;
         if (this.multiple && this.filterable) {
-          const length = this.$refs.input.value.length * 15 + 20;
-          this.inputLength = this.collapseTags ? Math.min(50, length) : length;
-          this.managePlaceholder();
-          this.resetInputHeight();
+          this.$nextTick(() => {
+            const length = this.$refs.input.value.length * 15 + 20;
+            this.inputLength = this.collapseTags ? Math.min(50, length) : length;
+            this.managePlaceholder();
+            this.resetInputHeight();
+          });
         }
         if (this.remote && typeof this.remoteMethod === 'function') {
           this.hoverIndex = -1;
@@ -502,6 +511,7 @@
         let option;
         const isObject = Object.prototype.toString.call(value).toLowerCase() === '[object object]';
         const isNull = Object.prototype.toString.call(value).toLowerCase() === '[object null]';
+        const isUndefined = Object.prototype.toString.call(value).toLowerCase() === '[object undefined]';
 
         for (let i = this.cachedOptions.length - 1; i >= 0; i--) {
           const cachedOption = this.cachedOptions[i];
@@ -514,8 +524,8 @@
           }
         }
         if (option) return option;
-        const label = (!isObject && !isNull)
-          ? value : '';
+        const label = (!isObject && !isNull && !isUndefined)
+          ? String(value) : '';
         let newOption = {
           value: value,
           currentLabel: label
@@ -556,7 +566,9 @@
         if (!this.softFocus) {
           if (this.automaticDropdown || this.filterable) {
             this.visible = true;
-            this.menuVisibleOnFocus = true;
+            if (this.filterable) {
+              this.menuVisibleOnFocus = true;
+            }
           }
           this.$emit('focus', event);
         } else {
@@ -634,11 +646,12 @@
           let inputChildNodes = this.$refs.reference.$el.childNodes;
           let input = [].filter.call(inputChildNodes, item => item.tagName === 'INPUT')[0];
           const tags = this.$refs.tags;
+          const tagsHeight = tags ? Math.round(tags.getBoundingClientRect().height) : 0;
           const sizeInMap = this.initialInputHeight || 40;
           input.style.height = this.selected.length === 0
             ? sizeInMap + 'px'
             : Math.max(
-              tags ? (tags.clientHeight + (tags.clientHeight > sizeInMap ? 6 : 0)) : 0,
+              tags ? (tagsHeight + (tagsHeight > sizeInMap ? 6 : 0)) : 0,
               sizeInMap
             ) + 'px';
           if (this.visible && this.emptyText !== false) {
@@ -663,7 +676,7 @@
 
       handleOptionSelect(option, byClick) {
         if (this.multiple) {
-          const value = this.value.slice();
+          const value = (this.value || []).slice();
           const optionIndex = this.getValueIndex(value, option.value);
           if (optionIndex > -1) {
             value.splice(optionIndex, 1);
@@ -825,7 +838,7 @@
     },
 
     created() {
-      this.cachedPlaceHolder = this.currentPlaceholder = this.placeholder;
+      this.cachedPlaceHolder = this.currentPlaceholder = this.propPlaceholder;
       if (this.multiple && !Array.isArray(this.value)) {
         this.$emit('input', []);
       }
@@ -858,7 +871,8 @@
           small: 32,
           mini: 28
         };
-        this.initialInputHeight = reference.$el.getBoundingClientRect().height || sizeMap[this.selectSize];
+        const input = reference.$el.querySelector('input');
+        this.initialInputHeight = input.getBoundingClientRect().height || sizeMap[this.selectSize];
       }
       if (this.remote && this.multiple) {
         this.resetInputHeight();

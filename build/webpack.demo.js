@@ -16,11 +16,10 @@ const isPlay = !!process.env.PLAY_ENV;
 const webpackConfig = {
   mode: process.env.NODE_ENV,
   entry: isProd ? {
-    docs: './examples/entry.js',
-    'gc-ui': './src/index.js'
+    docs: './examples/entry.js'
   } : (isPlay ? './examples/play.js' : './examples/entry.js'),
   output: {
-    path: path.resolve(process.cwd(), './examples/gc-ui/'),
+    path: path.resolve(process.cwd(), './examples/element-ui/'),
     publicPath: process.env.CI_ENV || '',
     filename: '[name].[hash:7].js',
     chunkFilename: isProd ? '[name].[hash:7].js' : '[name].js'
@@ -34,7 +33,7 @@ const webpackConfig = {
     host: '0.0.0.0',
     port: 8085,
     publicPath: '/',
-    noInfo: true
+    hot: true
   },
   performance: {
     hints: false
@@ -101,6 +100,7 @@ const webpackConfig = {
     ]
   },
   plugins: [
+    new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
       template: './examples/index.tpl',
       filename: './index.html',
@@ -124,7 +124,8 @@ const webpackConfig = {
   ],
   optimization: {
     minimizer: []
-  }
+  },
+  devtool: '#eval-source-map'
 };
 
 if (isProd) {
@@ -146,6 +147,17 @@ if (isProd) {
     }),
     new OptimizeCSSAssetsPlugin({})
   );
+  // https://webpack.js.org/configuration/optimization/#optimizationsplitchunks
+  webpackConfig.optimization.splitChunks = {
+    cacheGroups: {
+      vendor: {
+        test: /\/src\//,
+        name: 'element-ui',
+        chunks: 'all'
+      }
+    }
+  };
+  webpackConfig.devtool = false;
 }
 
 module.exports = webpackConfig;

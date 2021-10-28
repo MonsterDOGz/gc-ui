@@ -22,8 +22,8 @@ Dans main.js:
 
 ```javascript
 import Vue from 'vue';
-import ElementUI from 'gc-ui';
-import 'gc-ui/lib/theme-chalk/index.css';
+import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
 import App from './App.vue';
 
 Vue.use(ElementUI);
@@ -55,7 +55,7 @@ Puis éditez .babelrc:
     [
       "component",
       {
-        "libraryName": "gc-ui",
+        "libraryName": "element-ui",
         "styleLibraryName": "theme-chalk"
       }
     ]
@@ -67,7 +67,7 @@ Ensuite, si vous n'avez besoin que de Button et Select, éditez main.js comme su
 
 ```javascript
 import Vue from 'vue';
-import { Button, Select } from 'gc-ui';
+import { Button, Select } from 'element-ui';
 import App from './App.vue';
 
 Vue.component(Button.name, Button);
@@ -134,6 +134,7 @@ import {
   Col,
   Upload,
   Progress,
+  Spinner,
   Badge,
   Card,
   Rate,
@@ -151,11 +152,20 @@ import {
   Aside,
   Main,
   Footer,
+  Timeline,
+  TimelineItem,
+  Link,
+  Divider,
+  Image,
+  Calendar,
+  Backtop,
+  PageHeader,
+  CascaderPanel,
   Loading,
   MessageBox,
   Message,
   Notification
-} from 'gc-ui';
+} from 'element-ui';
 
 Vue.use(Pagination);
 Vue.use(Dialog);
@@ -203,6 +213,7 @@ Vue.use(Row);
 Vue.use(Col);
 Vue.use(Upload);
 Vue.use(Progress);
+Vue.use(Spinner);
 Vue.use(Badge);
 Vue.use(Card);
 Vue.use(Rate);
@@ -220,6 +231,15 @@ Vue.use(Header);
 Vue.use(Aside);
 Vue.use(Main);
 Vue.use(Footer);
+Vue.use(Timeline);
+Vue.use(TimelineItem);
+Vue.use(Link);
+Vue.use(Divider);
+Vue.use(Image);
+Vue.use(Calendar);
+Vue.use(Backtop);
+Vue.use(PageHeader);
+Vue.use(CascaderPanel);
 
 Vue.use(Loading.directive);
 
@@ -240,7 +260,7 @@ Import total d'Element：
 
 ```js
 import Vue from 'vue';
-import Element from 'gc-ui';
+import Element from 'element-ui';
 Vue.use(Element, { size: 'small', zIndex: 3000 });
 ```
 
@@ -248,7 +268,7 @@ Import partiel d'Element：
 
 ```js
 import Vue from 'vue';
-import { Button } from 'gc-ui';
+import { Button } from 'element-ui';
 
 Vue.prototype.$ELEMENT = { size: 'small', zIndex: 3000 };
 Vue.use(Button);

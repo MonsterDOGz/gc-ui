@@ -1,8 +1,8 @@
 <script type="text/jsx">
-  import emitter from 'gc-ui/src/mixins/emitter';
-  import Migrating from 'gc-ui/src/mixins/migrating';
-  import Menubar from 'gc-ui/src/utils/menu/aria-menubar';
-  import { addClass, removeClass, hasClass } from 'gc-ui/src/utils/dom';
+  import emitter from 'element-ui/src/mixins/emitter';
+  import Migrating from 'element-ui/src/mixins/migrating';
+  import Menubar from 'element-ui/src/utils/menu/aria-menubar';
+  import { addClass, removeClass, hasClass } from 'element-ui/src/utils/dom';
 
   export default {
     name: 'ElMenu',
@@ -139,7 +139,12 @@
       }
     },
     watch: {
-      defaultActive: 'updateActiveIndex',
+      defaultActive(value){
+        if(!this.items[value]){
+          this.activeIndex = null
+        }
+        this.updateActiveIndex(value)
+      },
 
       defaultOpeneds(value) {
         if (!this.collapse) {
@@ -266,7 +271,12 @@
         if (this.router && hasIndex) {
           this.routeToItem(item, (error) => {
             this.activeIndex = oldActiveIndex;
-            if (error) console.error(error);
+            if (error) {
+              // vue-router 3.1.0+ push/replace cause NavigationDuplicated error 
+              // https://github.com/ElemeFE/element/issues/17044
+              if (error.name === 'NavigationDuplicated') return
+              console.error(error)
+            }
           });
         }
       },

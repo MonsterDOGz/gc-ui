@@ -1,7 +1,7 @@
 ## Card
 Muestra información dentro de un contenedor `card`
 
-### Uso Basico
+### Uso Básico
 
 `Card` incluye titulo, contenido y operaciones.
 
@@ -81,7 +81,7 @@ Muestre un contenido más rico añadiendo algunas configuraciones.
 <el-row>
   <el-col :span="8" v-for="(o, index) in 2" :key="o" :offset="index > 0 ? 2 : 0">
     <el-card :body-style="{ padding: '0px' }">
-      <img src="../../examples/assets/images/hamburger.png" class="image">
+      <img src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png" class="image">
       <div style="padding: 14px;">
         <span>Yummy hamburger</span>
         <div class="bottom clearfix">
@@ -169,4 +169,4 @@ Puede definir cuándo mostrar las sombras.
 | ---------- | ---------------------------------------- | ------ | -----------------  | ------------------- |
 | header     | Titulo del card. También acepta DOM pasado por `slot#header` | string  | —                 | —                   |
 | body-style | Estilo CSS del cuerpo                    | object | —                  | { padding: '20px' } |
-| shadow     | cuando mostrar la sombra del Card | string | always / hover / never | always          |
+| shadow     | Cuando mostrar la sombra del Card | string | always / hover / never | always          |

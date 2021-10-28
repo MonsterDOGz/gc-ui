@@ -1,8 +1,8 @@
 <script>
 import UploadList from './upload-list';
 import Upload from './upload';
-import ElProgress from 'gc-ui/packages/progress';
-import Migrating from 'gc-ui/src/mixins/migrating';
+import ElProgress from 'element-ui/packages/progress';
+import Migrating from 'element-ui/src/mixins/migrating';
 
 function noop() {}
 
@@ -276,6 +276,15 @@ export default {
           files={this.uploadFiles}
           on-remove={this.handleRemove}
           handlePreview={this.onPreview}>
+          {
+            (props) => {
+              if (this.$scopedSlots.file) {
+                return this.$scopedSlots.file({
+                  file: props.file
+                });
+              }
+            }
+          }
         </UploadList>
       );
     }

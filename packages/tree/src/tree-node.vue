@@ -6,7 +6,7 @@
     v-show="node.visible"
     :class="{
       'is-expanded': expanded,
-      'is-current': tree.store.currentNode === node,
+      'is-current': node.isCurrent,
       'is-hidden': !node.visible,
       'is-focusable': !node.disabled,
       'is-checked': !node.disabled && node.checked
@@ -72,9 +72,9 @@
 </template>
 
 <script type="text/jsx">
-  import ElCollapseTransition from 'gc-ui/src/transitions/collapse-transition';
-  import ElCheckbox from 'gc-ui/packages/checkbox';
-  import emitter from 'gc-ui/src/mixins/emitter';
+  import ElCollapseTransition from 'element-ui/src/transitions/collapse-transition';
+  import ElCheckbox from 'element-ui/packages/checkbox';
+  import emitter from 'element-ui/src/mixins/emitter';
   import { getNodeKey } from './model/util';
 
   export default {

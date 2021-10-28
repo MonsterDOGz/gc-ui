@@ -1,9 +1,9 @@
 import Vue from 'vue';
-import { addClass, removeClass } from 'gc-ui/src/utils/dom';
+import { addClass, removeClass } from 'element-ui/src/utils/dom';
 
 let hasModal = false;
 let hasInitZIndex = false;
-let zIndex = 2000;
+let zIndex;
 
 const getModal = function() {
   if (Vue.prototype.$isServer) return;
@@ -155,7 +155,7 @@ Object.defineProperty(PopupManager, 'zIndex', {
   configurable: true,
   get() {
     if (!hasInitZIndex) {
-      zIndex = (Vue.prototype.$ELEMENT || {}).zIndex || zIndex;
+      zIndex = zIndex || (Vue.prototype.$ELEMENT || {}).zIndex || 2000;
       hasInitZIndex = true;
     }
     return zIndex;

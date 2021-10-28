@@ -22,6 +22,7 @@
     >
       <span class="el-radio__inner"></span>
       <input
+        ref="radio"
         class="el-radio__original"
         :value="label"
         type="radio"
@@ -33,6 +34,7 @@
         :name="name"
         :disabled="isDisabled"
         tabindex="-1"
+        autocomplete="off"
       >
     </span>
     <span class="el-radio__label" @keydown.stop>
@@ -42,7 +44,7 @@
   </label>
 </template>
 <script>
-  import Emitter from 'gc-ui/src/mixins/emitter';
+  import Emitter from 'element-ui/src/mixins/emitter';
 
   export default {
     name: 'ElRadio',
@@ -98,6 +100,7 @@
           } else {
             this.$emit('input', val);
           }
+          this.$refs.radio && (this.$refs.radio.checked = this.model === this.label);
         }
       },
       _elFormItemSize() {

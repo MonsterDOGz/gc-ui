@@ -118,6 +118,7 @@
               :max-date="maxDate"
               :range-state="rangeState"
               :disabled-date="disabledDate"
+              :cell-class-name="cellClassName"
               @changerange="handleChangeRange"
               :first-day-of-week="firstDayOfWeek"
               @pick="handleRangePick">
@@ -157,6 +158,7 @@
               :max-date="maxDate"
               :range-state="rangeState"
               :disabled-date="disabledDate"
+              :cell-class-name="cellClassName"
               @changerange="handleChangeRange"
               :first-day-of-week="firstDayOfWeek"
               @pick="handleRangePick">
@@ -197,27 +199,24 @@
     nextYear,
     prevMonth,
     nextMonth,
+    nextDate,
     extractDateFormat,
     extractTimeFormat
-  } from '../util';
-  import Clickoutside from 'gc-ui/src/utils/clickoutside';
-  import Locale from 'gc-ui/src/mixins/locale';
+  } from 'element-ui/src/utils/date-util';
+  import Clickoutside from 'element-ui/src/utils/clickoutside';
+  import Locale from 'element-ui/src/mixins/locale';
   import TimePicker from './time';
   import DateTable from '../basic/date-table';
-  import ElInput from 'gc-ui/packages/input';
-  import ElButton from 'gc-ui/packages/button';
-
-  const advanceDate = (date, amount) => {
-    return new Date(new Date(date).getTime() + amount);
-  };
+  import ElInput from 'element-ui/packages/input';
+  import ElButton from 'element-ui/packages/button';
 
   const calcDefaultValue = (defaultValue) => {
     if (Array.isArray(defaultValue)) {
       return [new Date(defaultValue[0]), new Date(defaultValue[1])];
     } else if (defaultValue) {
-      return [new Date(defaultValue), advanceDate(defaultValue, 24 * 60 * 60 * 1000)];
+      return [new Date(defaultValue), nextDate(new Date(defaultValue), 1)];
     } else {
-      return [new Date(), advanceDate(Date.now(), 24 * 60 * 60 * 1000)];
+      return [new Date(), nextDate(new Date(), 1)];
     }
   };
 
@@ -334,6 +333,7 @@
         shortcuts: '',
         visible: '',
         disabledDate: '',
+        cellClassName: '',
         firstDayOfWeek: 7,
         minTimePickerVisible: false,
         maxTimePickerVisible: false,
@@ -669,6 +669,7 @@
         // NOTE: this is a hack to reset {min, max}Date on picker open.
         // TODO: correct way of doing so is to refactor {min, max}Date to be dependent on value and internal selection state
         //       an alternative would be resetView whenever picker becomes visible, should also investigate date-panel's resetView
+        if (this.minDate && this.maxDate == null) this.rangeState.selecting = false;
         this.minDate = this.value && isDate(this.value[0]) ? new Date(this.value[0]) : null;
         this.maxDate = this.value && isDate(this.value[0]) ? new Date(this.value[1]) : null;
       }

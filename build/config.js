@@ -9,21 +9,21 @@ var transitionList = fs.readdirSync(path.resolve(__dirname, '../src/transitions'
 var externals = {};
 
 Object.keys(Components).forEach(function(key) {
-  externals[`gc-ui/packages/${key}`] = `gc-ui/lib/${key}`;
+  externals[`element-ui/packages/${key}`] = `element-ui/lib/${key}`;
 });
 
-externals['gc-ui/src/locale'] = 'gc-ui/lib/locale';
+externals['element-ui/src/locale'] = 'element-ui/lib/locale';
 utilsList.forEach(function(file) {
   file = path.basename(file, '.js');
-  externals[`gc-ui/src/utils/${file}`] = `gc-ui/lib/utils/${file}`;
+  externals[`element-ui/src/utils/${file}`] = `element-ui/lib/utils/${file}`;
 });
 mixinsList.forEach(function(file) {
   file = path.basename(file, '.js');
-  externals[`gc-ui/src/mixins/${file}`] = `gc-ui/lib/mixins/${file}`;
+  externals[`element-ui/src/mixins/${file}`] = `element-ui/lib/mixins/${file}`;
 });
 transitionList.forEach(function(file) {
   file = path.basename(file, '.js');
-  externals[`gc-ui/src/transitions/${file}`] = `gc-ui/lib/transitions/${file}`;
+  externals[`element-ui/src/transitions/${file}`] = `element-ui/lib/transitions/${file}`;
 });
 
 externals = [Object.assign({
@@ -36,7 +36,7 @@ exports.alias = {
   main: path.resolve(__dirname, '../src'),
   packages: path.resolve(__dirname, '../packages'),
   examples: path.resolve(__dirname, '../examples'),
-  'gc-ui': path.resolve(__dirname, '../')
+  'element-ui': path.resolve(__dirname, '../')
 };
 
 exports.vue = {
@@ -46,4 +46,4 @@ exports.vue = {
   amd: 'vue'
 };
 
-exports.jsexclude = /node_modules|utils\/popper\.js|utils\/date.\js/;
+exports.jsexclude = /node_modules|utils\/popper\.js|utils\/date\.js/;

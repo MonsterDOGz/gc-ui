@@ -64,14 +64,14 @@ Las opciones pueden ser discretas.
   <div class="block">
     <span class="demonstration">Breakpoints not displayed</span>
     <el-slider
-      v-model="value6"
+      v-model="value1"
       :step="10">
     </el-slider>
   </div>
   <div class="block">
     <span class="demonstration">Breakpoints displayed</span>
     <el-slider
-      v-model="value7"
+      v-model="value2"
       :step="10"
       show-stops>
     </el-slider>
@@ -82,8 +82,8 @@ Las opciones pueden ser discretas.
   export default {
     data() {
       return {
-        value6: 0,
-        value7: 0
+        value1: 0,
+        value2: 0
       }
     }
   }
@@ -93,7 +93,7 @@ Las opciones pueden ser discretas.
 
 ### Slider con input
 
-Inserte el valor a traves de un input
+Inserte el valor a través de un input
 
 :::demo Configure el atributo `show-input` para que muestre un input a la derecha.
 
@@ -101,7 +101,7 @@ Inserte el valor a traves de un input
 <template>
   <div class="block">
     <el-slider
-      v-model="value8"
+      v-model="value"
       show-input>
     </el-slider>
   </div>
@@ -111,7 +111,7 @@ Inserte el valor a traves de un input
   export default {
     data() {
       return {
-        value8: 0
+        value: 0
       }
     }
   }
@@ -129,7 +129,7 @@ Se soporta la selección de un rango de valores.
 <template>
   <div class="block">
     <el-slider
-      v-model="value9"
+      v-model="value"
       range
       show-stops
       :max="10">
@@ -141,7 +141,7 @@ Se soporta la selección de un rango de valores.
   export default {
     data() {
       return {
-        value9: [4, 8]
+        value: [4, 8]
       }
     }
   }
@@ -157,7 +157,7 @@ Se soporta la selección de un rango de valores.
 <template>
   <div class="block">
     <el-slider
-      v-model="value10"
+      v-model="value"
       vertical
       height="200px">
     </el-slider>
@@ -168,7 +168,44 @@ Se soporta la selección de un rango de valores.
   export default {
     data() {
       return {
-        value10: 0
+        value: 0
+      }
+    }
+  }
+</script>
+```
+:::
+
+### Mostrar marcas
+
+:::demo Use el atributo `marks`  para mostrar marcas en el slider.
+```html
+<template>
+  <div class="block">
+    <el-slider
+      v-model="value"
+      range
+      :marks="marks">
+    </el-slider>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        value: [30, 60],
+        marks: {
+          0: '0°C',
+          8: '8°C',
+          37: '37°C',
+          50: {
+            style: {
+              color: '#1989FA'
+            },
+            label: this.$createElement('strong', '50%')
+          }
+        }
       }
     }
   }
@@ -180,11 +217,11 @@ Se soporta la selección de un rango de valores.
 | Atributo            | Descripción                              | Tipo            | Valores aceptados | Por defecto |
 | ------------------- | ---------------------------------------- | --------------- | ----------------- | ----------- |
 | value / v-model      | valor enlazado                           | number          | —                 | 0           |
-| min                 | valor minimo                             | number          | —                 | 0           |
+| min                 | valor mínimo                       | number          | —                 | 0           |
 | max                 | valor máximo                             | number          | —                 | 100         |
 | disabled            | si el Slider esta deshabitado            | boolean         | —                 | false       |
 | step                | tamaño del paso                          | number          | —                 | 1           |
-| show-input          | Si se muestra el input, trabaja cuando`range`es false | boolean         | —                 | false       |
+| show-input          | Si se muestra el input, trabaja cuando `range`es false | boolean         | —                 | false       |
 | show-input-controls | si se muestran los botones de control cuando`show-input`es true | boolean         | —                 | true        |
 | input-size          | tamaño del input   | string           | large / medium / small / mini | small |
 | show-stops          | si se muestran los puntos de ruptura (breakpoints) | boolean         | —                 | false       |
@@ -194,11 +231,13 @@ Se soporta la selección de un rango de valores.
 | vertical            | modo vertical                            | boolean         | —                 | false       |
 | height              | alto del Slider, requerido en modo vertical | string          | —                 | —           |
 | label               | etiqueta para screen reader              | string          | —                 | —           |
-| debounce            | retardo al escribir, en milisegundos, funciona cuando`show-input` es true. | number          | —                 | 300         |
+| debounce            | retardo al escribir, en mili segundos, funciona cuando`show-input` es true. | number          | —                 | 300         |
 | tooltip-class       | nombre personalizado de clase para el tooltip | string | — | — |
+| marks | marcas, tipo de clave debe ser `number` y debe estar en intervalo cerrado [min, max], cada marca puede tener estilo personalizado | object | — | — |
 
 ## Eventos
-| Nombre | Descripción                              | Parametros               |
+| Nombre | Descripción                              | Parámetros     |
 | ------ | ---------------------------------------- | ------------------------ |
-| change | se dispara cuando el valor cambia (si el ratón está comenzando el arrastre este evento sólo se disparara cuando se suelte el ratón) | valor despues del cambio |
+| change | se dispara cuando el valor cambia (si el ratón está comenzando el arrastre este evento sólo se disparara cuando se suelte el ratón) | valor después del cambio |
+| input | Se dispara cuando los datos cambian (funciona en tiempo real) | valor después del cambio |
 

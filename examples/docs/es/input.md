@@ -3,11 +3,11 @@
 Ingresa datos usando el ratón o teclado.
 
 :::warning
-Input is a controlled component, it **always shows Vue binding value**.
+Input es un componente controlado, **siempre muestra el valor de enlace Vue**.
 
-Under normal circumstances, `input` event should be handled. Its handler should update component's binding value (or use `v-model`). Otherwise, input box's value will not change.
+Bajo circunstancias normales, el evento "input" debe ser manejado. Su handler debe actualizar el valor de enlace del componente (o usar `v-model`). De lo contrario, el valor del cuadro de entrada no cambiará.
 
-Do not support `v-model` modifiers.
+No admite modificadores `v-model`.
 :::
 
 ### Uso básico
@@ -37,7 +37,7 @@ export default {
 ```html
 <el-input
   placeholder="Please input"
-  v-model="input1"
+  v-model="input"
   :disabled="true">
 </el-input>
 
@@ -45,7 +45,7 @@ export default {
 export default {
   data() {
     return {
-      input1: ''
+      input: ''
     }
   }
 }
@@ -54,14 +54,14 @@ export default {
 
 :::
 
-### Clearable
+### Limpiable
 
-:::demo Make the Input clearable with the `clearable` attribute.
+:::demo Marque que el input puede ser limpiable con el atributo `clearable`.
 
 ```html
 <el-input
   placeholder="Please input"
-  v-model="input10"
+  v-model="input"
   clearable>
 </el-input>
 
@@ -69,7 +69,7 @@ export default {
 export default {
   data() {
     return {
-      input10: ''
+      input: ''
     }
   }
 }
@@ -79,16 +79,16 @@ export default {
 
 ### Password box
 
-:::demo Make a toggleable password Input with the `show-password` attribute.
+:::demo Haga un input de contraseña conmutable con el atributo `show-password`.
 
 ```html
-<el-input placeholder="Please input password" v-model="input11" show-password></el-input>
+<el-input placeholder="Please input password" v-model="input" show-password></el-input>
 
 <script>
   export default {
     data() {
       return {
-        input11: ''
+        input: ''
       }
     }
   }
@@ -108,24 +108,24 @@ Añada un icono para indicar el tipo de Input.
   <el-input
     placeholder="Pick a date"
     suffix-icon="el-icon-date"
-    v-model="input2">
+    v-model="input1">
   </el-input>
   <el-input
     placeholder="Type something"
     prefix-icon="el-icon-search"
-    v-model="input21">
+    v-model="input2">
   </el-input>
 </div>
 <div class="demo-input-suffix">
   <span class="demo-input-label">Using slots</span>
   <el-input
     placeholder="Pick a date"
-    v-model="input22">
+    v-model="input3">
     <i slot="suffix" class="el-input__icon el-icon-date"></i>
   </el-input>
   <el-input
     placeholder="Type something"
-    v-model="input23">
+    v-model="input4">
     <i slot="prefix" class="el-input__icon el-icon-search"></i>
   </el-input>
 </div>
@@ -141,10 +141,10 @@ Añada un icono para indicar el tipo de Input.
 export default {
   data() {
     return {
+      input1: '',
       input2: '',
-      input21: '',
-      input22: '',
-      input23: ''
+      input3: '',
+      input4: ''
     }
   }
 }
@@ -155,7 +155,7 @@ export default {
 
 ### Textarea
 
-Redimensiona para introducir varias líneas de información de texto. Agrege el atributo `type="textarea"` para cambiar el `input` al tipo nativo `textarea`.
+Re dimensiona para introducir varias líneas de información de texto. Agregue el atributo `type="textarea"` para cambiar el `input` al tipo nativo `textarea`.
 
 :::demo Controle la altura ajustando el prop `rows`.
 
@@ -180,9 +180,9 @@ export default {
 
 :::
 
-### Textarea tamaño automatico
+### Textarea tamaño automático
 
-El ajuste del prop `autosize` en el tipo de Input textarea hace que la altura se ajuste automáticamente en función del contenido. Se puede proporcionar opciones en un objeto para autodimensionar y especificar el número mínimo y máximo de líneas que el textarea puede ajustar automáticamente.
+El ajuste del prop `autosize` en el tipo de Input textarea hace que la altura se ajuste automáticamente en función del contenido. Se puede proporcionar opciones en un objeto para auto dimensionar y especificar el número mínimo y máximo de líneas que el textarea puede ajustar automáticamente.
 
 :::demo
 
@@ -191,22 +191,22 @@ El ajuste del prop `autosize` en el tipo de Input textarea hace que la altura se
   type="textarea"
   autosize
   placeholder="Please input"
-  v-model="textarea2">
+  v-model="textarea1">
 </el-input>
 <div style="margin: 20px 0;"></div>
 <el-input
   type="textarea"
   :autosize="{ minRows: 2, maxRows: 4}"
   placeholder="Please input"
-  v-model="textarea3">
+  v-model="textarea2">
 </el-input>
 
 <script>
 export default {
   data() {
     return {
-      textarea2: '',
-      textarea3: ''
+      textarea1: '',
+      textarea2: ''
     }
   }
 }
@@ -223,17 +223,17 @@ Añade un elemento antes o después del input, generalmente una etiqueta o un bo
 
 ```html
 <div>
-  <el-input placeholder="Please input" v-model="input3">
+  <el-input placeholder="Please input" v-model="input1">
     <template slot="prepend">Http://</template>
   </el-input>
 </div>
 <div style="margin-top: 15px;">
-  <el-input placeholder="Please input" v-model="input4">
+  <el-input placeholder="Please input" v-model="input2">
     <template slot="append">.com</template>
   </el-input>
 </div>
 <div style="margin-top: 15px;">
-  <el-input placeholder="Please input" v-model="input5" class="input-with-select">
+  <el-input placeholder="Please input" v-model="input3" class="input-with-select">
     <el-select v-model="select" slot="prepend" placeholder="Select">
       <el-option label="Restaurant" value="1"></el-option>
       <el-option label="Order No." value="2"></el-option>
@@ -255,9 +255,9 @@ Añade un elemento antes o después del input, generalmente una etiqueta o un bo
 export default {
   data() {
     return {
+      input1: '',
+      input2: '',
       input3: '',
-      input4: '',
-      input5: '',
       select: ''
     }
   }
@@ -275,22 +275,22 @@ export default {
 <div class="demo-input-size">
   <el-input
     placeholder="Please Input"
-    v-model="input6">
+    v-model="input1">
   </el-input>
   <el-input
     size="medium"
     placeholder="Please Input"
-    v-model="input7">
+    v-model="input2">
   </el-input>
   <el-input
     size="small"
     placeholder="Please Input"
-    v-model="input8">
+    v-model="input3">
   </el-input>
   <el-input
     size="mini"
     placeholder="Please Input"
-    v-model="input9">
+    v-model="input4">
   </el-input>
 </div>
 
@@ -298,10 +298,10 @@ export default {
 export default {
   data() {
     return {
-      input6: '',
-      input7: '',
-      input8: '',
-      input9: ''
+      input1: '',
+      input2: '',
+      input3: '',
+      input4: ''
     }
   }
 }
@@ -394,7 +394,7 @@ Personalice cómo se muestran las sugerencias.
 ```html
 <el-autocomplete
   popper-class="my-autocomplete"
-  v-model="state3"
+  v-model="state"
   :fetch-suggestions="querySearch"
   placeholder="Please input"
   @select="handleSelect">
@@ -432,7 +432,7 @@ Personalice cómo se muestran las sugerencias.
     data() {
       return {
         links: [],
-        state3: ''
+        state: ''
       };
     },
     methods: {
@@ -482,7 +482,7 @@ Búsqueda de datos desde el servidor.
 
 ```html
 <el-autocomplete
-  v-model="state4"
+  v-model="state"
   :fetch-suggestions="querySearchAsync"
   placeholder="Please input"
   @select="handleSelect"
@@ -492,7 +492,7 @@ Búsqueda de datos desde el servidor.
     data() {
       return {
         links: [],
-        state4: '',
+        state: '',
         timeout:  null
       };
     },
@@ -535,25 +535,62 @@ Búsqueda de datos desde el servidor.
 
 :::
 
+### Limitar el tamaño
+
+:::demo `maxlength` y `minlength` son atributos de la entrada nativa, declaran un límite en el número de caracteres que un usuario puede introducir. La configuración de la pro `maxlength` para un tipo de entrada de texto o de área de texto puede limitar la longitud del valor de entrada y le permite mostrar el recuento de palabras al establecer `show-word-limit` a `true` al mismo tiempo.
+
+```html
+<el-input
+  type="text"
+  placeholder="Please input"
+  v-model="text"
+  maxlength="10"
+  show-word-limit
+>
+</el-input>
+<div style="margin: 20px 0;"></div>
+<el-input
+  type="textarea"
+  placeholder="Please input"
+  v-model="textarea"
+  maxlength="30"
+  show-word-limit
+>
+</el-input>
+
+<script>
+export default {
+  data() {
+    return {
+      text: '',
+      textarea: ''
+    }
+  }
+}
+</script>
+```
+:::
+
 ### Input atributos
 
 | Atributo      | Descripción                                                                                                                                      | Tipo             | Valores aceptados                                                                                                                       | Por defecto |
 | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------- | --------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
 | type          | tipo de input                                                                                                                                    | string           | text, textarea y otros [tipos de entrada nativos](https://developer.mozilla.org/es/docs/Web/HTML/Elemento/input#Form_%3Cinput%3E_types) | text        |
-| value / v-model | valor enlazado                          | boolean / string / number | —                       | —           |                                                                                                                                | —           |
+| value / v-model | valor enlazado                          | boolean / string / number | —                       | —           |
 | maxlength     | igual que `maxlength` en el input nativo                                                                                                         | number           | —                                                                                                                                       | —           |
 | minlength     | igual que `minlength` en el input nativo                                                                                                         | number           | —                                                                                                                                       | —           |
+| show-word-limit | Si se muestra el contador de palabras, solamente funciona con los tipos `text` o `textarea` | boolean    |  —  | false |
 | placeholder   | placeholder del Input                                                                                                                            | string           | —                                                                                                                                       | —           |
-| clearable | whether to show clear button | boolean | — | false |
-| show-password | whether to show toggleable password input| boolean         | — | false |
+| clearable | si debe mostrar el botón de limpieza | boolean | — | false |
+| show-password | si debe mostrar la posibilidad de conmutación de password input | boolean         | — | false |
 | disabled      | si esta deshabilitado                                                                                                                            | boolean          | —                                                                                                                                       | false       |
 | size          | tamaño del input, esto no funciona cuando `type` no es textarea                                                                                  | string           | medium / small / mini                                                                                                                   | —           |
 | prefix-icon   | clase del icono de prefijo                                                                                                                       | string           | —                                                                                                                                       | —           |
 | suffix-icon   | clase del icono de sufijo                                                                                                                        | string           | —                                                                                                                                       | —           |
-| rows          | número de filas, sólo funciona cuando `type` es 'textarea'.                                                                                      | number           | —                                                                                                                                       | 2           |
-| autosize      | si textarea tiene una altura adaptativa, sólo funciona cuando el`type` es 'textarea'. Puede aceptar un objeto, p. ej. { minRows: 2, maxRows: 6 } | boolean / object | —                                                                                                                                       | false       |
+| rows          | número de filas, sólo funciona cuando `type` es `textarea`.                                                                                    | number           | —                                                                                                                                       | 2           |
+| autosize      | si textarea tiene una altura adaptativa, sólo funciona cuando el`type` es `textarea`. Puede aceptar un objeto, p. ej. { minRows: 2, maxRows: 6 } | boolean / object | —                                                                                                                                       | false       |
 | autocomplete  | igual que `autocomplete` en el input nativo                                                                                                      | string           | on/off                                                                                                                                  | off         |
-| auto-complete | @DEPRECATED en el proximo cambio mayor de version                                                                                                | string           | on/off                                                                                                                                  | off         |
+| auto-complete | @DEPRECATED en el próximo cambio mayor de versión                                                                                  | string           | on/off                                                                                                                                  | off         |
 | name          | igual que `name` en el input nativo                                                                                                              | string           | —                                                                                                                                       | —           |
 | readonly      | igual que `readonly` en el input nativo                                                                                                          | boolean          | —                                                                                                                                       | false       |
 | max           | igual que `max` en el input nativo                                                                                                               | —                | —                                                                                                                                       | —           |
@@ -563,7 +600,7 @@ Búsqueda de datos desde el servidor.
 | autofocus     | igual que `autofocus` en el input nativo                                                                                                         | boolean          | —                                                                                                                                       | false       |
 | form          | igual que `form` en el input nativo                                                                                                              | string           | —                                                                                                                                       | —           |
 | label         | texto de la etiqueta                                                                                                                             | string           | —                                                                                                                                       | —           |
-| tabindex      | orden de tabulacion para el Input                                                                                                                | string           | -                                                                                                                                       | -           |
+| tabindex      | orden de tabulación para el Input                                                                                                               | string           | -                                                                                                                                       | -           |
 
 ### Input slots
 
@@ -576,16 +613,18 @@ Búsqueda de datos desde el servidor.
 
 ### Input eventos
 
-| Nombre | Descripción                                                                                | Parametros                |
-| ------ | ------------------------------------------------------------------------------------------ | ------------------------- |
-| blur   | Se dispara cuando se pierde el foco                                                        | (event: Event)            |
-| focus  | Se dispara cuando se obtiene el foco                                                       | (event: Event)            |
-| change | se activa cuando cambia el valor de entrada                                                | (value: string \| number) |
-| clear  | se dispara cuando la entrada es borrada por el botón generado por el atributo "clearable". | —                         |
+| Nombre | Descripción                                                  | Parámetros                |
+| ------ | ------------------------------------------------------------ | ------------------------- |
+| blur   | Se dispara cuando se pierde el foco                          | (event: Event)            |
+| focus  | Se dispara cuando se obtiene el foco                         | (event: Event)            |
+| change | se activa cuando cambia el valor de entrada                  | (value: string \| number) |
+| change | se activa solo cuando el cuadro de entrada pierde el foco o el usuario presiona Enter | (value: string \| number) |
+| input  | se activa cuando cambia el valor de entrada                  | (value: string \| number) |
+| clear  | se dispara cuando la entrada es borrada por el botón generado por el atributo `clearable`. | —                         |
 
-### Input Metodo
+### Input Métodos
 
-| Metodo | Descripción                   | Parametros |
+| Método | Descripción                   | Parámetros |
 | ------ | ----------------------------- | ---------- |
 | focus  | coloca el foco en el elemento | —          |
 | blur   | quita el foco del elemento    | —          |
@@ -626,18 +665,19 @@ Búsqueda de datos desde el servidor.
 
 ### Autocomplete Scoped Slot
 
-| Name | Description                                                                              |
-| ---- | ---------------------------------------------------------------------------------------- |
-| —    | Contenido personalizado para el input de sugerencias. El parametro del scope es { item } |
+| Nombre | Descripción                                                  |
+| ------ | ------------------------------------------------------------ |
+| —      | Contenido personalizado para el input de sugerencias. El parámetro del scope es { ítem } |
 
 ### Autocomplete Eventos
 
-| Nombre | Descripción                                      | Parametros                                  |
-| ------ | ------------------------------------------------ | ------------------------------------------- |
-| select | se dispara cuando se hace click a una sugerencia | sugerencia en la que se está haciendo click |
+| Nombre | Descripción                                     | Parámetros                                 |
+| ------ | ----------------------------------------------- | ------------------------------------------ |
+| select | se dispara cuando se hace clic a una sugerencia | sugerencia en la que se está haciendo clic |
+| change | se activa cuando cambia el valor de entrada     | (value: string \| number)                  |
 
-### Autocomplete Metodo
+### Autocomplete Método
 
-| Metodo | Descripción                   | Parametros |
+| Método | Descripción                   | Parámetros |
 | ------ | ----------------------------- | ---------- |
 | focus  | coloca el foco en el elemento | —          |

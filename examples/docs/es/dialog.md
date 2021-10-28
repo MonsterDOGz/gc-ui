@@ -201,7 +201,7 @@ El contenido de Diálogo se puede centrar.
 :::
 
 :::tip
-The content of Dialog is lazily rendered, which means the default slot is not rendered onto the DOM until it is firstly opened. Therefore, if you need to perform a DOM manipulation or access a component using `ref`, do it in the `open` event callback.
+El contenido de Dialog se renderiza en modo lazy, lo que significa que la ranura por defecto no se renderiza en el DOM hasta que se abre por primera vez. Por lo tanto, si necesita realizar una manipulación DOM o acceder a un componente mediante ref, hágalo en el callback del evento `open`.
 :::
 
 :::tip
@@ -229,20 +229,21 @@ Si la variable ligada a `visible` se gestiona en el Vuex store, el `.sync` no pu
 | show-close            | si mostrar un botón de cerrar            | boolean                                  | —                 | true        |
 | before-close          | una devolución de llamada antes de que se cierre el cuadro de diálogo, y evitar cerrar el cuadro de diálogo | función(done) `done`se usa para cerrar el diálog | —                 | —           |
 | center                | si alinear el encabezado y el pie de página en el centro | boolean                                  | —                 | false       |
+| destroy-on-close      | Destruir elementos en Dialog cuando se cierra | boolean                                  | —                 | false         |
 
 ### Slots
 
-| Nombre | Descripcíon                            |
+| Nombre | Descripción                            |
 | ------ | -------------------------------------- |
 | —      | contenido de Diálogo                   |
 | title  | contenido del título de Diálogo        |
 | footer | contenido del pie de página de Diálogo |
 
 ### Eventos
-| Nombre de Evento | Descripcíon                              | Parámetros |
+| Nombre de Evento | Descripción                   | Parámetros |
 | ---------------- | ---------------------------------------- | ---------- |
 | open             | se activa cuando se abre el cuadro de Diálogo | —          |
-| opened           | se activa cuando la animacion de apertura del Dialog termina. | — |
+| opened           | se activa cuando la animación de apertura del Dialog termina. | — |
 | close            | se dispara cuando el Diálogo se cierra   | —          |
 | closed           | se activa cuando finaliza la animación de cierre del Diálog | — |
 

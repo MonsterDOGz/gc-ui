@@ -46,9 +46,9 @@
   </div>
 </template>
 <script>
-  import ElInput from 'gc-ui/packages/input';
-  import Focus from 'gc-ui/src/mixins/focus';
-  import RepeatClick from 'gc-ui/src/directives/repeat-click';
+  import ElInput from 'element-ui/packages/input';
+  import Focus from 'element-ui/src/mixins/focus';
+  import RepeatClick from 'element-ui/src/directives/repeat-click';
 
   export default {
     name: 'ElInputNumber',
@@ -71,6 +71,10 @@
       step: {
         type: Number,
         default: 1
+      },
+      stepStrictly: {
+        type: Boolean,
+        default: false
       },
       max: {
         type: Number,
@@ -116,6 +120,13 @@
             if (isNaN(newVal)) {
               return;
             }
+
+            if (this.stepStrictly) {
+              const stepPrecision = this.getPrecision(this.step);
+              const precisionFactor = Math.pow(10, stepPrecision);
+              newVal = Math.round(newVal / this.step) * precisionFactor * this.step / precisionFactor;
+            }
+
             if (this.precision !== undefined) {
               newVal = this.toPrecision(newVal, this.precision);
             }
@@ -157,24 +168,34 @@
         return this.size || this._elFormItemSize || (this.$ELEMENT || {}).size;
       },
       inputNumberDisabled() {
-        return this.disabled || (this.elForm || {}).disabled;
+        return this.disabled || !!(this.elForm || {}).disabled;
       },
       displayValue() {
         if (this.userInput !== null) {
           return this.userInput;
         }
-        const currentValue = this.currentValue;
-        if (typeof currentValue === 'number' && this.precision !== undefined) {
-          return currentValue.toFixed(this.precision);
-        } else {
-          return currentValue;
+
+        let currentValue = this.currentValue;
+
+        if (typeof currentValue === 'number') {
+          if (this.stepStrictly) {
+            const stepPrecision = this.getPrecision(this.step);
+            const precisionFactor = Math.pow(10, stepPrecision);
+            currentValue = Math.round(currentValue / this.step) * precisionFactor * this.step / precisionFactor;
+          }
+
+          if (this.precision !== undefined) {
+            currentValue = currentValue.toFixed(this.precision);
+          }
         }
+
+        return currentValue;
       }
     },
     methods: {
       toPrecision(num, precision) {
         if (precision === undefined) precision = this.numPrecision;
-        return parseFloat(Number(num).toFixed(precision));
+        return parseFloat(Math.round(num * Math.pow(10, precision)) / Math.pow(10, precision));
       },
       getPrecision(value) {
         if (value === undefined) return 0;

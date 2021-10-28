@@ -41,17 +41,17 @@ Alert interrompt l'action de l'utilisateur jusqu'à ce qu'il confirme.
 
 Confirm est utilisé pour demander une confirmation à l'utilisateur.
 
-:::demo Appelez la méthode `$confirm` pour ouvrir une confirm, qui simule le `confirm` système. Vous pouvez aussi personnaliser MessageBox en passant un objet à l'attribut `options`. L'attribut `type` indique le type de message (voir en bas de la page pour la liste des valeurs possibles). Notez que l'attribut `title` doit être de type `string`. Si il se trouve être un `object`, il sera considéré comme étant l'attribut `options`. Cet exemple utilise une `Promise` pour gérer la suite du processus.
+:::demo Appelez la méthode `$confirm` pour ouvrir une confirm, qui simule le `confirm` système. Vous pouvez aussi personnaliser MessageBox en passant un objet à l'attribut `options`. L'attribut `type` indique le type de message (voir en bas de la page pour la liste des valeurs possibles). Notez que l'attribut `title` doit être de type `string`. S'il se trouve être un `object`, il sera considéré comme étant l'attribut `options`. Cet exemple utilise une `Promise` pour gérer la suite du processus.
 
 ```html
 <template>
-  <el-button type="text" @click="open2">Cliquez pour ouvrir la MessageBox</el-button>
+  <el-button type="text" @click="open">Cliquez pour ouvrir la MessageBox</el-button>
 </template>
 
 <script>
   export default {
     methods: {
-      open2() {
+      open() {
         this.$confirm('Ceci effacera le fichier. Continuer?', 'Warning', {
           confirmButtonText: 'OK',
           cancelButtonText: 'Annuler',
@@ -83,13 +83,13 @@ Prompt est utilisé lorsqu'un utilisateur.
 
 ```html
 <template>
-  <el-button type="text" @click="open3">Cliquez pour ouvrir la MessageBox</el-button>
+  <el-button type="text" @click="open">Cliquez pour ouvrir la MessageBox</el-button>
 </template>
 
 <script>
   export default {
     methods: {
-      open3() {
+      open() {
         this.$prompt('Entrez votre e-mail', 'Astuce', {
           confirmButtonText: 'OK',
           cancelButtonText: 'Annuler',
@@ -121,13 +121,13 @@ Il est possible d'afficher du contenu un peu plus varié et personnalisé.
 
 ```html
 <template>
-  <el-button type="text" @click="open4">Cliquez pour ouvrir la MessageBox</el-button>
+  <el-button type="text" @click="open">Cliquez pour ouvrir la MessageBox</el-button>
 </template>
 
 <script>
   export default {
     methods: {
-      open4() {
+      open() {
         const h = this.$createElement;
         this.$msgbox({
           title: 'Message',
@@ -177,13 +177,13 @@ Le contenu de MessageBox peut être `VNode`, Vous permettant de passer des compo
 
 ```html
 <template>
-  <el-button type="text" @click="open5">Cliquez pour ouvrir la MessageBox</el-button>
+  <el-button type="text" @click="open">Cliquez pour ouvrir la MessageBox</el-button>
 </template>
 
 <script>
   export default {
     methods: {
-      open5() {
+      open() {
         this.$alert('<strong>Ceci est du <i>HTML</i></strong>', 'HTML', {
           dangerouslyUseHTMLString: true
         });
@@ -206,14 +206,14 @@ Dans certains cas, les boutons fermer et annuler peuvent avoir des sens différe
 
 ```html
 <template>
-  <el-button type="text" @click="open6">Cliquez pour ouvrir la MessageBox</el-button>
+  <el-button type="text" @click="open">Cliquez pour ouvrir la MessageBox</el-button>
 </template>
 
 <script>
   export default {
     methods: {
-      open6() {
-        this.$confirm('Vous avez du travail non-enregistré, enregistrer et quitter?', 'Confirm', {
+      open() {
+        this.$confirm('Vous avez du travail non enregistré, enregistrer et quitter?', 'Confirm', {
           distinguishCancelAndClose: true,
           confirmButtonText: 'Enregistrer',
           cancelButtonText: 'Ne pas enregistrer'
@@ -247,13 +247,13 @@ le contenu de MessageBox peut être centré.
 
 ```html
 <template>
-  <el-button type="text" @click="open7">Cliquez pour ouvrir la MessageBox</el-button>
+  <el-button type="text" @click="open">Cliquez pour ouvrir la MessageBox</el-button>
 </template>
 
 <script>
   export default {
     methods: {
-      open7() {
+      open() {
         this.$confirm('Ceci effacera le fichier, continuer?' , 'Warning', {
           confirmButtonText: 'OK',
           cancelButtonText: 'Annuler',
@@ -290,7 +290,7 @@ Si Element est importé entièrement, il ajoutera les méthodes suivantes à Vue
 Si vous préférer importer `MessageBox` à la demande:
 
 ```javascript
-import { MessageBox } from 'gc-ui';
+import { MessageBox } from 'element-ui';
 ```
 
 Les méthodes correspondantes sont: `MessageBox`, `MessageBox.alert`, `MessageBox.confirm` et `MessageBox.prompt`. Les paramètres sont les mêmes que précédemment.
@@ -308,7 +308,7 @@ Les méthodes correspondantes sont: `MessageBox`, `MessageBox.alert`, `MessageBo
 | callback | La callback de fermeture de MessageBox si vous n'utilisez pas les promesses. | function(action, instance), ou `action` peut être 'confirm', 'cancel' ou 'close', et `instance` est l'instance MessageBox. | — | — |
 | showClose | Si l'icône de fermeture doit être affichée. | boolean | — | true |
 | beforeClose | La callback de pré-fermeture qui empèchera MessageBox de se fermer. | function(action, instance, done), ou `action` peut-être 'confirm', 'cancel' ou 'close'; `instance` est l'instance de MessageBox; `done` est la méthode pour fermer l'instance. | — | — |
-| distinguishCancelAndClose | Si il doit y avoir une différence entre l'annulation et la fermeture de la MessageBox. | boolean | — | false |
+| distinguishCancelAndClose | S'il doit y avoir une différence entre l'annulation et la fermeture de la MessageBox. | boolean | — | false |
 | lockScroll | Si le défilement de la page doit être bloqué lorsque la MessageBox est active. | boolean | — | true |
 | showCancelButton | Si le bouton annuler doit être affiché. | boolean | — | false (true dans le cas de confirm ou prompt). |
 | showConfirmButton | Si le bouton confirmer doit être affiché. | boolean | — | true |

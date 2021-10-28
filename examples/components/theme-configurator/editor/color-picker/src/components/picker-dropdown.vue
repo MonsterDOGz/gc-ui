@@ -29,6 +29,7 @@
         <el-button
           plain
           size="mini"
+          type="primary"
           class="el-color-dropdown__btn"
           @click="confirmValue">
           {{ t('el.colorpicker.confirm') }}
@@ -50,10 +51,10 @@
   import AlphaSlider from './alpha-slider';
   import Predefine from './predefine';
   import ColorList from './color-list';
-  import Popper from 'gc-ui/src/utils/vue-popper';
-  import Locale from 'gc-ui/src/mixins/locale';
-  import ElInput from 'gc-ui/packages/input';
-  import ElButton from 'gc-ui/packages/button';
+  import Popper from 'element-ui/src/utils/vue-popper';
+  import Locale from 'element-ui/src/mixins/locale';
+  import ElInput from 'element-ui/packages/input';
+  import ElButton from 'element-ui/packages/button';
 
   export default {
     name: 'el-color-picker-dropdown',

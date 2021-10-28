@@ -43,13 +43,14 @@
 </template>
 
 <script type="text/babel">
-  import Popper from 'gc-ui/src/utils/vue-popper';
-  import { PopupManager } from 'gc-ui/src/utils/popup';
-  import Locale from 'gc-ui/src/mixins/locale';
-  import Clickoutside from 'gc-ui/src/utils/clickoutside';
+  import Popper from 'element-ui/src/utils/vue-popper';
+  import { PopupManager } from 'element-ui/src/utils/popup';
+  import Locale from 'element-ui/src/mixins/locale';
+  import Clickoutside from 'element-ui/src/utils/clickoutside';
   import Dropdown from './dropdown';
-  import ElCheckbox from 'gc-ui/packages/checkbox';
-  import ElCheckboxGroup from 'gc-ui/packages/checkbox-group';
+  import ElCheckbox from 'element-ui/packages/checkbox';
+  import ElCheckboxGroup from 'element-ui/packages/checkbox-group';
+  import ElScrollbar from 'element-ui/packages/scrollbar';
 
   export default {
     name: 'ElTableFilterPanel',
@@ -62,7 +63,8 @@
 
     components: {
       ElCheckbox,
-      ElCheckboxGroup
+      ElCheckboxGroup,
+      ElScrollbar
     },
 
     props: {
@@ -70,17 +72,6 @@
         type: String,
         default: 'bottom-end'
       }
-    },
-
-    customRender(h) {
-      return (<div class="el-table-filter">
-        <div class="el-table-filter__content">
-        </div>
-        <div class="el-table-filter__bottom">
-          <button on-click={ this.handleConfirm }>{ this.t('el.table.confirmFilter') }</button>
-          <button on-click={ this.handleReset }>{ this.t('el.table.resetFilter') }</button>
-        </div>
-      </div>);
     },
 
     methods: {

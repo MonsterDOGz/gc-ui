@@ -51,9 +51,9 @@ La checkbox peut être désactivée.
 
 ### Checkbox groupées
 
-Utile pour grouper des checkbox, indiquant si une option est selectionnée en vérifiant la case en question.
+Utile pour grouper des checkbox, indiquant si une option est sélectionnée en vérifiant la case en question.
 
-:::demo L'élément `checkbox-group` peut gérer plusieurs checkbox d'un groupe en utilisant `v-model`, qui sera un `Array`. Dans l'élément `el-checkbox`, `label` est la valeur de la checkbox. Si il n'y a aucun contenu dans la balise, `label` sera également la description de la checkbox. `label` correspond aussi aux valeurs des éléments dans le tableau. Il est sélectionné si la valeur spécifiée existe dans le tableau, et vice-versa.
+:::demo L'élément `checkbox-group` peut gérer plusieurs checkbox d'un groupe en utilisant `v-model`, qui sera un `Array`. Dans l'élément `el-checkbox`, `label` est la valeur de la checkbox. S'il n'y a aucun contenu dans la balise, `label` sera également la description de la checkbox. `label` correspond aussi aux valeurs des éléments dans le tableau. Il est sélectionné si la valeur spécifiée existe dans le tableau, et vice-versa.
 
 ```html
 <template>
@@ -80,13 +80,13 @@ Utile pour grouper des checkbox, indiquant si une option est selectionnée en v�
 
 ### Indéterminée
 
-La propriété `indeterminate` permet de réaliser un effet "Selectionner tout".
+La propriété `indeterminate` permet de réaliser un effet "Sélectionner tout".
 
 :::demo
 
 ```html
 <template>
-  <el-checkbox :indeterminate="isIndeterminate" v-model="checkAll" @change="handleCheckAllChange">Selectionner tout</el-checkbox>
+  <el-checkbox :indeterminate="isIndeterminate" v-model="checkAll" @change="handleCheckAllChange">Sélectionner tout</el-checkbox>
   <div style="margin: 15px 0;"></div>
   <el-checkbox-group v-model="checkedCities" @change="handleCheckedCitiesChange">
     <el-checkbox v-for="city in cities" :label="city" :key="city">{{city}}</el-checkbox>
@@ -128,7 +128,7 @@ Les propriétés `min` et `max` permettent de limiter la quantité d'éléments 
 ```html
 <template>
   <el-checkbox-group
-    v-model="checkedCities1"
+    v-model="checkedCities"
     :min="1"
     :max="2">
     <el-checkbox v-for="city in cities" :label="city" :key="city">{{city}}</el-checkbox>
@@ -139,7 +139,7 @@ Les propriétés `min` et `max` permettent de limiter la quantité d'éléments 
   export default {
     data() {
       return {
-        checkedCities1: ['Shanghai', 'Beijing'],
+        checkedCities: ['Shanghai', 'Beijing'],
         cities: cityOptions
       };
     }
@@ -200,21 +200,21 @@ Des checkbox avec une apparence de bouton.
 ```html
 <template>
   <div>
-    <el-checkbox v-model="checked3" label="Option1" border></el-checkbox>
-    <el-checkbox v-model="checked4" label="Option2" border></el-checkbox>
+    <el-checkbox v-model="checked1" label="Option1" border></el-checkbox>
+    <el-checkbox v-model="checked2" label="Option2" border></el-checkbox>
   </div>
   <div style="margin-top: 20px">
-    <el-checkbox v-model="checked5" label="Option1" border size="medium"></el-checkbox>
-    <el-checkbox v-model="checked6" label="Option2" border size="medium"></el-checkbox>
+    <el-checkbox v-model="checked3" label="Option1" border size="medium"></el-checkbox>
+    <el-checkbox v-model="checked4" label="Option2" border size="medium"></el-checkbox>
   </div>
   <div style="margin-top: 20px">
-    <el-checkbox-group v-model="checkboxGroup5" size="small">
+    <el-checkbox-group v-model="checkboxGroup1" size="small">
       <el-checkbox label="Option1" border></el-checkbox>
       <el-checkbox label="Option2" border disabled></el-checkbox>
     </el-checkbox-group>
   </div>
   <div style="margin-top: 20px">
-    <el-checkbox-group v-model="checkboxGroup6" size="mini" disabled>
+    <el-checkbox-group v-model="checkboxGroup2" size="mini" disabled>
       <el-checkbox label="Option1" border></el-checkbox>
       <el-checkbox label="Option2" border></el-checkbox>
     </el-checkbox-group>
@@ -225,12 +225,12 @@ Des checkbox avec une apparence de bouton.
   export default {
     data () {
       return {
-        checked3: true,
-        checked4: false,
-        checked5: false,
-        checked6: true,
-        checkboxGroup5: [],
-        checkboxGroup6: []
+        checked1: true,
+        checked2: false,
+        checked3: false,
+        checked4: true,
+        checkboxGroup1: [],
+        checkboxGroup2: []
       };
     }
   }
@@ -244,7 +244,7 @@ Des checkbox avec une apparence de bouton.
 | value / v-model | La valeur liée. | string / number / boolean | — | — |
 | label     | Valeur de la checkbox quand utilisée dans un `checkbox-group`.   | string / number / boolean   |       —        |     —    |
 | true-label | Valeur de la checkbox si cochée.   | string / number    |       —        |     —    |
-| false-label | Valeur de la checkbox si non-cochée.   | string / number    |      —         |     —    |
+| false-label | Valeur de la checkbox si non cochée.   | string / number    |      —         |     —    |
 | disabled  | Désactive la checkbox.   | boolean   |  — | false   |
 | border  | Ajoute une bordure à la checkbox.  | boolean   | — | false   |
 | size  | taille de la checkbox, ne marche que si `border` est 'true'  | string  | medium / small / mini | — |
@@ -278,7 +278,7 @@ Des checkbox avec une apparence de bouton.
 |---------- |-------- |---------- |-------------  |-------- |
 | label     | Valeur de la checkbox quand utilisée dans un `checkbox-group` | string / number / boolean  |       —        |     —    |
 | true-label | Valeur de la checkbox si cochée. | string / number | — |     —    |
-| false-label | Valeur de la checkbox si non-cochée. | string / number    |      —         |     —    |
+| false-label | Valeur de la checkbox si non cochée. | string / number    |      —         |     —    |
 | disabled  | Si la checkbox est désactivée. | boolean   |  — | false   |
 | name | Attribut 'name' natif. | string    |      —         |     —    |
-| checked  | SI la checkbox est cochée. | boolean   |  — | false   |
+| checked  | Si la checkbox est cochée. | boolean   |  — | false   |

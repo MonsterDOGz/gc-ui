@@ -70,7 +70,7 @@ Vous pouvez personnaliser le texte, le spinner et la couleur de fond.
 ```html
 <template>
   <el-table
-    v-loading="loading2"
+    v-loading="loading"
     element-loading-text="Loading..."
     element-loading-spinner="el-icon-loading"
     element-loading-background="rgba(0, 0, 0, 0.8)"
@@ -110,7 +110,7 @@ Vous pouvez personnaliser le texte, le spinner et la couleur de fond.
           name: 'John Smith',
           address: 'No.1518,  Jinshajiang Road, Putuo District'
         }],
-        loading2: true
+        loading: true
       };
     }
   };
@@ -128,7 +128,7 @@ Affichez une animation en plein écran quand vous charger des données.
 <template>
   <el-button
     type="primary"
-    @click="openFullScreen"
+    @click="openFullScreen1"
     v-loading.fullscreen.lock="fullscreenLoading">
     Comme directive
   </el-button>
@@ -147,7 +147,7 @@ Affichez une animation en plein écran quand vous charger des données.
       }
     },
     methods: {
-      openFullScreen() {
+      openFullScreen1() {
         this.fullscreenLoading = true;
         setTimeout(() => {
           this.fullscreenLoading = false;
@@ -175,7 +175,7 @@ Affichez une animation en plein écran quand vous charger des données.
 Vous pouvez invoquer Loading comme un service. Importez le service Loading:
 
 ```javascript
-import { Loading } from 'gc-ui';
+import { Loading } from 'element-ui';
 ```
 Et invoquer-le:
 

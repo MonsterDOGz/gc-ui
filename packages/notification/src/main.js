@@ -1,7 +1,8 @@
 import Vue from 'vue';
 import Main from './main.vue';
-import { PopupManager } from 'gc-ui/src/utils/popup';
-import { isVNode } from 'gc-ui/src/utils/vdom';
+import merge from 'element-ui/src/utils/merge';
+import { PopupManager } from 'element-ui/src/utils/popup';
+import { isVNode } from 'element-ui/src/utils/vdom';
 const NotificationConstructor = Vue.extend(Main);
 
 let instance;
@@ -10,7 +11,7 @@ let seed = 1;
 
 const Notification = function(options) {
   if (Vue.prototype.$isServer) return;
-  options = options || {};
+  options = merge({}, options);
   const userOnClose = options.onClose;
   const id = 'notification_' + seed++;
   const position = options.position || 'top-right';

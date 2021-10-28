@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import {
   PopupManager
-} from 'gc-ui/src/utils/popup';
+} from 'element-ui/src/utils/popup';
 
 const PopperJS = Vue.prototype.$isServer ? function() {} : require('./popper');
 const stop = e => e.stopPropagation();
@@ -70,9 +70,7 @@ export default {
     },
 
     showPopper(val) {
-      if (this.disabled) {
-        return;
-      }
+      if (this.disabled) return;
       val ? this.updatePopper() : this.destroyPopper();
       this.$emit('input', val);
     }

@@ -1,4 +1,4 @@
-import Vue from 'vue'
+import Vue, { PluginObject } from 'vue'
 import { ElementUIComponent, ElementUIComponentSize, ElementUIHorizontalAlignment } from './component'
 
 import { ElAlert } from './alert'
@@ -67,8 +67,27 @@ import { ElTimePicker } from './time-picker'
 import { ElTimeSelect } from './time-select'
 import { ElTooltip } from './tooltip'
 import { ElTransfer } from './transfer'
-import { ElTree } from './tree'
+import { ElTree, TreeData } from './tree'
 import { ElUpload } from './upload'
+import { ElLink } from './link'
+import { ElDivider } from './divider'
+import { ElIcon } from './icon'
+import { ElCalendar } from './calendar'
+import { ElImage } from './image'
+import { ElBacktop } from './backtop'
+import { ElInfiniteScroll } from './infinite-scroll'
+import { ElPageHeader } from './page-header'
+import { ElAvatar } from './avatar'
+import { ElDrawer } from './drawer'
+import { ElPopconfirm } from './popconfirm'
+import { ElSkeleton } from './skeleton'
+import { ElSkeletonItem } from './skeleton-item'
+import { ElCascaderPanel } from './cascader-panel'
+import { ElEmpty } from './empty'
+import { ElSpinner } from './spinner'
+import { ElDescriptions } from './descriptions'
+import { ElDescriptionsItem } from './descriptions-item'
+import { ElResult } from './result'
 
 export interface InstallationOptions {
   locale: any,
@@ -76,11 +95,11 @@ export interface InstallationOptions {
   size: string
 }
 
-/** The version of gc-ui */
+/** The version of element-ui */
 export const version: string
 
 /**
- * Install all gc-ui components into Vue.
+ * Install all element-ui components into Vue.
  * Please do not invoke this method directly.
  * Call `Vue.use(ElementUI)` to install.
  */
@@ -296,7 +315,64 @@ export class Tooltip extends ElTooltip {}
 export class Transfer extends ElTransfer {}
 
 /** Tree Component */
-export class Tree extends ElTree {}
+export class Tree<K = any, D = TreeData> extends ElTree<K, D> {}
 
 /** Upload Component */
 export class Upload extends ElUpload {}
+
+/** Divider Component */
+export class Divider extends ElDivider {}
+
+/** Link Component */
+export class Link extends ElLink {}
+
+/** Image Component */
+export class Image extends ElImage {}
+
+/** Icon Component */
+export class Icon extends ElIcon {}
+
+/** Calendar Component */
+export class Calendar extends ElCalendar {}
+
+/** Backtop Component */
+export class Backtop extends ElBacktop {}
+
+/** InfiniteScroll Directive */
+export const InfiniteScroll: PluginObject<ElInfiniteScroll>;
+
+/** PageHeader Component */
+export class PageHeader extends ElPageHeader {}
+
+/** Avatar Component */
+export class Avatar extends ElAvatar {}
+
+/** Drawer Component */
+export class Drawer extends ElDrawer {}
+
+/** Popconfirm Component */
+export class Popconfirm extends ElPopconfirm {}
+
+/** Skeleton Component */
+export class Skeleton extends ElSkeleton {}
+
+/** Skeleton Item Component */
+export class SkeletonItem extends ElSkeletonItem {}
+
+/** CascaderPanel Component */
+export class CascaderPanel extends ElCascaderPanel {}
+
+/** Empty Component */
+export class Empty extends ElEmpty {}
+
+/** Spinner Component */
+export class Spinner extends ElSpinner {}
+
+/** Description Component */
+export class Descriptions extends ElDescriptions {}
+
+/** Description Item Component */
+export class DescriptionsItem extends ElDescriptionsItem {}
+
+/** Result Component */
+export class Result extends ElResult {}

@@ -28,15 +28,17 @@
           </button>
         </div>
         <div class="el-message-box__content">
-          <div
-            :class="['el-message-box__status', icon]"
-            v-if="icon && !center && message !== ''">
-          </div>
-          <div class="el-message-box__message" v-if="message !== ''">
-            <slot>
-              <p v-if="!dangerouslyUseHTMLString">{{ message }}</p>
-              <p v-else v-html="message"></p>
-            </slot>
+          <div class="el-message-box__container">
+            <div
+              :class="['el-message-box__status', icon]"
+              v-if="icon && !center && message !== ''">
+            </div>
+            <div class="el-message-box__message" v-if="message !== ''">
+              <slot>
+                <p v-if="!dangerouslyUseHTMLString">{{ message }}</p>
+                <p v-else v-html="message"></p>
+              </slot>
+            </div>
           </div>
           <div class="el-message-box__input" v-show="showInput">
             <el-input
@@ -77,13 +79,13 @@
 </template>
 
 <script type="text/babel">
-  import Popup from 'gc-ui/src/utils/popup';
-  import Locale from 'gc-ui/src/mixins/locale';
-  import ElInput from 'gc-ui/packages/input';
-  import ElButton from 'gc-ui/packages/button';
-  import { addClass, removeClass } from 'gc-ui/src/utils/dom';
-  import { t } from 'gc-ui/src/locale';
-  import Dialog from 'gc-ui/src/utils/aria-dialog';
+  import Popup from 'element-ui/src/utils/popup';
+  import Locale from 'element-ui/src/mixins/locale';
+  import ElInput from 'element-ui/packages/input';
+  import ElButton from 'element-ui/packages/button';
+  import { addClass, removeClass } from 'element-ui/src/utils/dom';
+  import { t } from 'element-ui/src/locale';
+  import Dialog from 'element-ui/src/utils/aria-dialog';
 
   let messageBox;
   let typeMap = {
@@ -231,6 +233,9 @@
       getInputElement() {
         const inputRefs = this.$refs.input.$refs;
         return inputRefs.input || inputRefs.textarea;
+      },
+      handleClose() {
+        this.handleAction('close');
       }
     },
 

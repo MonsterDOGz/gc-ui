@@ -7,7 +7,7 @@ Permet de transférer des options d'une liste à une autre de manière ergonomiq
 ```html
 <template>
   <el-transfer
-    v-model="value1"
+    v-model="value"
     :data="data">
   </el-transfer>
 </template>
@@ -28,7 +28,7 @@ Permet de transférer des options d'une liste à une autre de manière ergonomiq
       };
       return {
         data: generateData(),
-        value1: [1, 4]
+        value: [1, 4]
       };
     }
   };
@@ -47,15 +47,15 @@ Vous pouvez filtrer les options.
     filterable
     :filter-method="filterMethod"
     filter-placeholder="State Abbreviations"
-    v-model="value2"
-    :data="data2">
+    v-model="value"
+    :data="data">
   </el-transfer>
 </template>
 
 <script>
   export default {
     data() {
-      const generateData2 = _ => {
+      const generateData = _ => {
         const data = [];
         const states = ['California', 'Illinois', 'Maryland', 'Texas', 'Florida', 'Colorado', 'Connecticut '];
         const initials = ['CA', 'IL', 'MD', 'TX', 'FL', 'CO', 'CT'];
@@ -69,8 +69,8 @@ Vous pouvez filtrer les options.
         return data;
       };
       return {
-        data2: generateData2(),
-        value2: [],
+        data: generateData(),
+        value: [],
         filterMethod(query, item) {
           return item.initial.toLowerCase().indexOf(query.toLowerCase()) > -1;
         }
@@ -85,14 +85,14 @@ Vous pouvez filtrer les options.
 
 Vous pouvez personnaliser les titres, les textes des boutons, les fonctions de rendu pour les objets et le contenu du footer.
 
-:::demo Utilisez `titles`, `button-texts`, `render-content` et `format` pour personnaliser respectivement les titres des listes, les textes des boutons, les fonctions de rendus des objets et le texte des statuts du header. Vous pouvez aussi utiliser des slots pour les objets. Pour le contenu du footer, deux slots sont fournis: `left-footer` et `right-footer`. SI vous souhaitez que certains items soient sélectionnés par défaut, utilisez `left-default-checked` et `right-default-checked`. Enfin, cet exemple utilise aussi l'évènement `change`. Notez que cet exemple ne fonctionne pas dans jsfiddle car il ne supporte pas JSX. Dans un vrai projet, `render-content` fonctionnera si les dépendances sont satisfaites.
+:::demo Utilisez `titles`, `button-texts`, `render-content` et `format` pour personnaliser respectivement les titres des listes, les textes des boutons, les fonctions de rendus des objets et le texte des statuts du header. Vous pouvez aussi utiliser des slots pour les objets. Pour le contenu du footer, deux slots sont fournis: `left-footer` et `right-footer`. Si vous souhaitez que certains items soient sélectionnés par défaut, utilisez `left-default-checked` et `right-default-checked`. Enfin, cet exemple utilise aussi l'évènement `change`. Notez que cet exemple ne fonctionne pas dans jsfiddle car il ne supporte pas JSX. Dans un vrai projet, `render-content` fonctionnera si les dépendances sont satisfaites.
 ```html
 <template>
   <p style="text-align: center; margin: 0 0 20px">Utilise render-content</p>
   <div style="text-align: center">
     <el-transfer
       style="text-align: left; display: inline-block"
-      v-model="value3"
+      v-model="value"
       filterable
       :left-default-checked="[2, 3]"
       :right-default-checked="[1]"
@@ -155,7 +155,7 @@ Vous pouvez personnaliser les titres, les textes des boutons, les fonctions de r
       };
       return {
         data: generateData(),
-        value3: [1],
+        value: [1],
         value4: [1],
         renderFunc(h, option) {
           return <span>{ option.key } - { option.label }</span>;
@@ -181,19 +181,19 @@ Par défaut, Transfer utilise `key`, `label` et `disabled` de vos objets. Si vos
 ```html
 <template>
   <el-transfer
-    v-model="value5"
+    v-model="value"
     :props="{
       key: 'value',
       label: 'desc'
     }"
-    :data="data3">
+    :data="data">
   </el-transfer>
 </template>
 
 <script>
   export default {
     data() {
-      const generateData3 = _ => {
+      const generateData = _ => {
         const data = [];
         for (let i = 1; i <= 15; i++) {
           data.push({
@@ -205,8 +205,8 @@ Par défaut, Transfer utilise `key`, `label` et `disabled` de vos objets. Si vos
         return data;
       };
       return {
-        data3: generateData3(),
-        value5: []
+        data: generateData(),
+        value: []
       };
     }
   };
@@ -223,7 +223,7 @@ Par défaut, Transfer utilise `key`, `label` et `disabled` de vos objets. Si vos
 | filterable | Si Transfer est filtrable. | boolean | — | false |
 | filter-placeholder | Placeholder du champ de filtrage. | string | — | Enter keyword |
 | filter-method | Méthode de filtrage. | function | — | — |
-| target-order | Ordre de tri des éléments de la liste d'arrivée. Si il est à `original`, les éléments garderont le même ordre que la liste d'origine. Si à `push`, les nouveaux éléments seront mis à la suite des anciens. Si mis à `unshift`, les nouveaux éléments seront mis en haut de la liste. | string | original / push / unshift | original |
+| target-order | Ordre de tri des éléments de la liste d'arrivée. S'il est à `original`, les éléments garderont le même ordre que la liste d'origine. Si à `push`, les nouveaux éléments seront mis à la suite des anciens. Si mis à `unshift`, les nouveaux éléments seront mis en haut de la liste. | string | original / push / unshift | original |
 | titles | Titres des listes. | array | — | ['List 1', 'List 2'] |
 | button-texts | Textes des boutons. | array | — | [ ] |
 | render-content | Fonction de rendu pour les objets. | function(h, option) | — | — |

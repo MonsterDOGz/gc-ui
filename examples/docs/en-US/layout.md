@@ -315,7 +315,7 @@ Taking example by Bootstrap's responsive design, five breakpoints are preset: xs
 Additionally, Element provides a series of classes for hiding elements under certain conditions. These classes can be added to any DOM elements or custom components. You need to import the following CSS file to use these classes:
 
 ```js
-import 'gc-ui/lib/theme-chalk/display.css';
+import 'element-ui/lib/theme-chalk/display.css';
 ```
 
 The classes are:
@@ -337,7 +337,7 @@ The classes are:
 | gutter | grid spacing | number | — | 0 |
 | type | layout mode, you can use flex, works in modern browsers | string | — | — |
 | justify | horizontal alignment of flex layout | string | start/end/center/space-around/space-between | start |
-| align | vertical alignment of flex layout | string | top/middle/bottom | top |
+| align | vertical alignment of flex layout | string | top/middle/bottom | — |
 | tag | custom element tag | string | * | div |
 
 ### Col Attributes

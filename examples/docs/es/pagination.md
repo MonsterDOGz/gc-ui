@@ -22,9 +22,9 @@ Si tiene que mostrar muchos datos en una página, utilice la paginación.
 ```
 :::
 
-### Number of pagers
+### Números de paginas
 
-:::demo By default, Pagination collapses extra pager buttons when it has more than 7 pages. This can be configured with the `pager-count` attribute.
+:::demo De forma predeterminada, Pagination colapsa los botones del paginador adicionales cuando tiene más de 7 páginas. Esto se puede configurar con el atributo `pager-count`.
 ```html
 <el-pagination
   :page-size="20"
@@ -51,7 +51,7 @@ Usa una paginación pequeña en caso de espacio limitado.
 
 ### Más elementos
 
-Agrega más modulos basados en su escenario.
+Agrega más módulos basados en su escenario.
 
 :::demo Este ejemplo es un completo caso de uso. Utiliza los eventos `size-change` y `current-change` para manejar el tamaño de página y el cambio de página. El atributo `page-sizes` acepta un arreglo de enteros, cada uno representa un diferente valor del atributo `sizes` que es un `select`, ejemplo `[100, 200, 300, 400]` indicará que el `select` tendrá las opciones: 100, 200, 300 o 400 elementos por página.
 
@@ -125,6 +125,34 @@ Agrega más modulos basados en su escenario.
   }
 </script>
 ```
+
+:::
+### Oculte la paginación cuando el resultado es solo una pagina simple
+
+Cuando sólo hay una página, oculte la paginación configurando el atributo `hide-on-single-page`.
+
+:::demo
+```html
+<div>
+ <el-switch v-model="value">
+ </el-switch>
+ <el-pagination
+  :hide-on-single-page="value"
+  :total="5"
+  layout="prev, pager, next">
+</el-pagination>
+</div>
+
+<script>
+  export default {
+    data() {
+      return {
+        value: false
+      }
+    }
+  }
+</script>
+```
 :::
 
 ### Atributos
@@ -141,15 +169,16 @@ Agrega más modulos basados en su escenario.
 | popper-class | clase propia para el `dropdown` del `select` del número de páginas | string   | —                                        | —                                      |
 | prev-text    | texto para el botón `prev`               | string   | —                                        | —                                      |
 | next-text    | texto para el botón `next`               | string   | —                                        | —                                      |
-| disabled | si Pagination esta disabled | boolean | — | false |
+| disabled     | si Pagination esta disabled              | boolean  | —                                        | false                                  |
+| hide-on-single-page | si ocultar cuando sólo hay una página | boolean |—                                 | -                                      |
 
 ### Eventos
 | Nombre del evento | Descripción                             | Parámetros                    |
 | ----------------- | --------------------------------------- | ----------------------------- |
 | size-change       | se dispara cuando `page-size` cambia    | nuevo valor de `page-size`    |
 | current-change    | se dispara cuando `current-page` cambia | nuevo valor de `current-page` |
-| prev-click | Se dispara cuando el boton `prev` recibe el click y la pagina actual cambia | la nueva pagina actual |
-| next-click | Se dispara cuando el boton `next` recibe el click y la pagina actual cambia | la nueva pagina actual |
+| prev-click | Se dispara cuando el botón `prev` recibe el clic y la pagina actual cambia | la nueva pagina actual |
+| next-click | Se dispara cuando el botón `next` recibe el clic y la pagina actual cambia | la nueva pagina actual |
 
 ### Slot
 | Nombre | Descripción                              |

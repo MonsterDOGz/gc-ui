@@ -35,8 +35,12 @@
       background: mix(white, transparent, 50%);
     }
 
+    &.el-button--default::before {
+      background: mix($--button-default-border-color, transparent, 50%);
+    }
+
     &:hover {
-      &::before {
+      &:not(.is-disabled)::before {
         top: 0;
         bottom: 0;
       }
@@ -56,6 +60,11 @@
       outline-width: 0;
     }
   }
+
+  [disabled] {
+    cursor: not-allowed;
+    color: $--font-color-disabled-base;
+  }
 }
 
 @include b(dropdown-menu) {
@@ -69,8 +78,6 @@
   border: 1px solid $--border-color-lighter;
   border-radius: $--border-radius-base;
   box-shadow: $--dropdown-menu-box-shadow;
-  max-height: 400px;
-  overflow: auto;
 
   @include e(item) {
     list-style: none;

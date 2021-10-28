@@ -3,6 +3,21 @@
     height: 80px;
   }
 
+  #v3-banner {
+    background-color: #409EFF;
+    min-height: 30px;
+    padding: 5px 60px;
+    z-index: 19;
+    box-sizing: border-box;
+    text-align: center;
+    color: #eee;
+  }
+
+  #v3-banner a {
+    color: #FFF;
+    font-weight: bold;
+  }
+
   .header {
     height: 80px;
     background-color: #fff;
@@ -267,6 +282,16 @@
 </style>
 <template>
   <div class="headerWrapper">
+    <div id="v3-banner" v-if="isHome">
+      <template v-if="lang === 'zh-CN'">
+        您正在浏览基于 Vue 2.x 的 Element UI 文档;
+        <a href="https://element-plus.org/#/zh-CN">点击这里</a> 查看 Vue 3.x 的升级版本
+      </template>
+      <template v-else>
+        You’re browsing the documentation of Element UI for Vue 2.x version.
+        <a href="https://element-plus.org">Click here</a> for Vue 3.x version
+      </template>
+    </div>
     <header class="header" ref="header">
       <div class="container">
         <h1><router-link :to="`/${ lang }`">
@@ -299,6 +324,14 @@
             <router-link
               active-class="active"
               :to="`/${ lang }/component`">{{ langConfig.components }}
+            </router-link>
+          </li>
+          <li 
+            class="nav-item nav-item-theme"
+          >
+            <router-link
+              active-class="active"
+              :to="`/${ lang }/theme`">{{ langConfig.theme }}
             </router-link>
           </li>
           <li class="nav-item">
@@ -361,12 +394,6 @@
               </el-dropdown-menu>
             </el-dropdown>
           </li>
-          
-          <!--theme picker-->
-          <li class="nav-item nav-theme-switch" v-show="isComponentPage">
-            <theme-configurator :key="lang" v-if="showThemeConfigurator"></theme-configurator>
-            <theme-picker v-else></theme-picker>
-          </li>
         </ul>
       </div>
     </header>
@@ -374,12 +401,12 @@
 </template>
 <script>
   import ThemePicker from './theme-picker.vue';
-  import ThemeConfigurator from './theme-configurator';
   import AlgoliaSearch from './search.vue';
   import compoLang from '../i18n/component.json';
   import Element from 'main/index.js';
-  import { getVars } from './theme-configurator/utils/api.js';
+  import themeLoader from './theme/loader';
   import bus from '../bus';
+  import { ACTION_USER_CONFIG_UPDATE } from './theme/constant.js';
 
   const { version } = Element;
 
@@ -396,14 +423,14 @@
           'en-US': 'English',
           'es': 'Español',
           'fr-FR': 'Français'
-        },
-        showThemeConfigurator: false
+        }
       };
     },
 
+    mixins: [themeLoader],
+
     components: {
       ThemePicker,
-      ThemeConfigurator,
       AlgoliaSearch
     },
 
@@ -419,21 +446,22 @@
       },
       isComponentPage() {
         return /^component/.test(this.$route.name);
+      },
+      isHome() {
+        return /^home/.test(this.$route.name);
       }
     },
     mounted() {
-      const host = location.hostname;
-      this.showThemeConfigurator = host.match('localhost') || host.match('elenet');
-      if (!this.showThemeConfigurator) {
-        getVars()
-          .then(() => {
-            this.showThemeConfigurator = true;
-            ga('send', 'event', 'DocView', 'Inner');
-          })
-          .catch((err) => {
-            console.error(err);
-          });
-      }
+      const testInnerImg = new Image();
+      testInnerImg.onload = () => {
+        this.$isEle = true;
+        ga('send', 'event', 'DocView', 'Ali', 'Inner');
+      };
+      testInnerImg.onerror = (err) => {
+        ga('send', 'event', 'DocView', 'Ali', 'Outer');
+        console.error(err);
+      };
+      testInnerImg.src = `https://private-alipayobjects.alipay.com/alipay-rmsdeploy-image/rmsportal/VmvVUItLdPNqKlNGuRHi.png?t=${Date.now()}`;
     },
     methods: {
       switchVersion(version) {
@@ -470,7 +498,7 @@
       xhr.open('GET', '/versions.json');
       xhr.send();
       let primaryLast = '#409EFF';
-      bus.$on('user-theme-config-update', (val) => {
+      bus.$on(ACTION_USER_CONFIG_UPDATE, (val) => {
         let primaryColor = val.global['$--color-primary'];
         if (!primaryColor) primaryColor = '#409EFF';
         const base64svg = 'data:image/svg+xml;base64,';
